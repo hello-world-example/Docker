@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Introduction on Docker</title>
+    <title>Docker</title>
     <link>https://hello-world-example.github.io/Docker/</link>
-    <description>Recent content in Introduction on Docker</description>
+    <description>Recent content on Docker</description>
     <generator>Hugo -- gohugo.io</generator>
     
 	<atom:link href="https://hello-world-example.github.io/Docker/index.xml" rel="self" type="application/rss+xml" />
@@ -15,49 +15,37 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/_sidebar/</guid>
-      <description> 简介
- 示例
- 默认带目录 设置不带目录 特有功能
-   </description>
+      <description> 核心概念  cgroups chroot 命令  常见问题  </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://hello-world-example.github.io/Docker/docs/hidden/</link>
+      <link>https://hello-world-example.github.io/Docker/docs/Core/Cgroups/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hello-world-example.github.io/Docker/docs/hidden/</guid>
-      <description>This page is hidden in menu Quondam non pater est dignior ille Eurotas Latent te facies Lorem markdownum arma ignoscas vocavit quoque ille texit mandata mentis ultimus, frementes, qui in vel. Hippotades Peleus pennas conscia cuiquam Caeneus quas.
- Pater demittere evincitque reddunt Maxime adhuc pressit huc Danaas quid freta Soror ego Luctus linguam saxa ultroque prior Tatiumque inquit Saepe liquitur subita superata dederat Anius sudor  Cum honorum Latona O fallor in sustinui iussorum equidem.</description>
+      <guid>https://hello-world-example.github.io/Docker/docs/Core/Cgroups/</guid>
+      <description>cgroups   namespace : linux 内核在 task_struct 中对进程组管理的基础机制 cgroups ( Control Groups ) : namespace 的用户空间的管理接口 LXC ( Linux Container ) : cgroups 的管理工具 Docker : LXC 的管理器  Docker 是 Go 来实现的，动化了对 LXC 的管理过程，能够自动在线下载相应的发行版本的 rootfs。LXC 可以直接 chroot 到任意的系统的 rootfs 上并通过 cgroups 的限制机制来控制容器内系统的资源占有率。cgroups 通过配置文件或者命令配置后，限制相应进程或一组进程使用的系统资源。
+摘录自 —— docker lxc cgroup namespace 入门
+ 作用  资源限制（Resource Limitation）：cgroups 可以对进程组使用的资源总额进行限制。如设定应用运行时使用内存的上限，一旦超过这个配额就发出 OOM（Out of Memory）。 优先级分配（Prioritization）：通过分配的 CPU 时间片数量及硬盘 IO 带宽大小，实际上就相当于控制了进程运行的优先级。 资源统计（Accounting）： cgroups 可以统计系统的资源使用量，如 CPU 使用时长、内存用量等等，这个功能非常适用于计费。 进程控制（Control）：cgroups 可以对进程组执行挂起、恢复等操作。  子系统  blkio : 这个子系统设置限制每个块设备的输入输出控制。例如:磁盘，光盘以及usb等 cpu : 这个子系统使用调度程序为cgroup任务提供cpu的访问 cpuacct : 产生cgroup任务的cpu资源报告 cpuset : 如果是多核心的cpu，这个子系统会为cgroup任务分配单独的cpu和内存 devices : 允许或拒绝cgroup任务对设备的访问 freezer : 暂停和恢复cgroup任务 memory : 设置每个cgroup的内存限制以及产生内存资源报告 net_cls : 标记每个网络包以供cgroup方便使用 ns : 名称空间子系统 perf_event: 增加了对每group的监测跟踪的能力  常用命令 # 安装 (apt-get install cgroup-bin) yum install libcgroup # 显示已经挂载的子系统 ( lssusys ) ll /sys/fs/cgroup/ .</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://hello-world-example.github.io/Docker/docs/shortcodes/</link>
+      <link>https://hello-world-example.github.io/Docker/docs/Core/Chroot/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hello-world-example.github.io/Docker/docs/shortcodes/</guid>
-      <description>各种样式 折叠 Default {{&amp;lt; expand &amp;gt;}} ## Markdown content Lorem markdownum insigne... {{&amp;lt; /expand &amp;gt;}}  Expand ↕  Markdown content Lorem markdownum insigne&amp;hellip;    With Custom Label {{&amp;lt; expand &amp;#34;Custom Label&amp;#34; &amp;#34;...&amp;#34; &amp;gt;}} ## Markdown content Lorem markdownum insigne... {{&amp;lt; /expand &amp;gt;}}  Custom Label ...  Markdown content Lorem markdownum insigne. Olympo signis Delphis! Retexi Nereius nova develat stringit, frustra Saturnius uteroque inter! Oculis non ritibus Telethusa protulit, sed sed aere valvis inhaesuro Pallas animam: qui quid, ignes.</description>
+      <guid>https://hello-world-example.github.io/Docker/docs/Core/Chroot/</guid>
+      <description> chroot Read More  理解 chroot  </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://hello-world-example.github.io/Docker/docs/with-toc/</link>
+      <link>https://hello-world-example.github.io/Docker/docs/FAQ/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hello-world-example.github.io/Docker/docs/with-toc/</guid>
-      <description>默认带导航 Cognita laeva illo fracta Lorem markdownum pavent auras, surgit nunc cingentibus libet Laomedonque que est. Pastor An arbor filia foedat, ne fugit aliter, per. Helicona illas et callida neptem est Oresitrophos caput, dentibus est venit. Tenet reddite famuli praesentem fortibus, quaeque vis foret si frondes gelidos gravidae circumtulit inpulit armenta nativum.
- Te at cruciabere vides rubentis manebo Maturuit in praetemptat ruborem ignara postquam habitasse Subitarum supplevit quoque fontesque venabula spretis modo Montis tot est mali quasque gravis Quinquennem domus arsit ipse Pellem turis pugnabant locavit  Natus quaerere Pectora et sine mulcere, coniuge dum tincta incurvae.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://hello-world-example.github.io/Docker/docs/without-toc/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://hello-world-example.github.io/Docker/docs/without-toc/</guid>
-      <description>不使用导航 Tanto oblite Lorem markdownum pectora novis patenti igne sua opus aurae feras materiaque illic demersit imago et aristas questaque posset. Vomit quoque suo inhaesuro clara. Esse cumque, per referri triste. Ut exponit solisque communis in tendens vincetis agisque iamque huic bene ante vetat omina Thebae rates. Aeacus servat admonitu concidit, ad resimas vultus et rugas vultu dignamque Siphnon.
-Quam iugulum regia simulacra, plus meruit humo pecorumque haesit, ab discedunt dixit: ritu pharetramque.</description>
+      <guid>https://hello-world-example.github.io/Docker/docs/FAQ/</guid>
+      <description>常见问题 容器启动后闪退  Docker 容器后台运行，就必须有一个前台进程
+ docker run -d centos /bin/bash -c &amp;quot;while true; do echo noting; sleep 1; done&amp;quot;</description>
     </item>
     
   </channel>
