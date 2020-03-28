@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker</title>
@@ -15,7 +15,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/_sidebar/</guid>
-      <description> 核心概念  cgroups chroot 命令  常见问题  </description>
+      <description> 核心概念  cgroups chroot 命令   常见问题..  时区设置    </description>
     </item>
     
     <item>
@@ -35,17 +35,16 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/docs/Core/Chroot/</guid>
-      <description> chroot Read More  理解 chroot  </description>
+      <description>chroot Read More  理解 chroot  </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://hello-world-example.github.io/Docker/docs/FAQ/</link>
+      <link>https://hello-world-example.github.io/Docker/docs/FAQ/TimeZone/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hello-world-example.github.io/Docker/docs/FAQ/</guid>
-      <description>常见问题 容器启动后闪退  Docker 容器后台运行，就必须有一个前台进程
- docker run -d centos /bin/bash -c &amp;quot;while true; do echo noting; sleep 1; done&amp;quot;</description>
+      <guid>https://hello-world-example.github.io/Docker/docs/FAQ/TimeZone/</guid>
+      <description>时区设置 启动后修改 # 查看是否是链接的方式 $ ls -al /etc/localtime xxxx /etc/localtime -&amp;gt; /usr/share/zoneinfo/Asia/Shanghai # 如果不是，链接到指定时区文件，f 强制覆盖 $ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime # 或 复制时区文件 # cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime # 使用宿主机时区 $ docker cp /etc/localtime container_id:/etc/localtime 启动时设置 # 设置时区环境 $ docker run -d \  -e TZ=&amp;#34;Asia/Shanghai&amp;#34; \  ... # 挂载宿主机时区 $ docker run -d \  -v /etc/localtime:/etc/localtime \  ... Read More  主机、Docker时间与时区设置总结  </description>
     </item>
     
   </channel>

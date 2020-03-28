@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docs on Docker</title>
@@ -26,17 +26,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/docs/Core/Chroot/</guid>
-      <description> chroot Read More  理解 chroot  </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://hello-world-example.github.io/Docker/docs/FAQ/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://hello-world-example.github.io/Docker/docs/FAQ/</guid>
-      <description>常见问题 容器启动后闪退  Docker 容器后台运行，就必须有一个前台进程
- docker run -d centos /bin/bash -c &amp;quot;while true; do echo noting; sleep 1; done&amp;quot;</description>
+      <description>chroot Read More  理解 chroot  </description>
     </item>
     
   </channel>
