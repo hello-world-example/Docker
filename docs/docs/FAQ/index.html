@@ -99,11 +99,20 @@ https://github.com/alex-shpak/hugo-book
 <blockquote>
 <p>Docker 容器后台运行，就必须有一个前台进程</p>
 </blockquote>
-<p><code>docker run -d centos /bin/bash -c &quot;while true; do echo noting; sleep 1; done&quot;</code></p>
-</article>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run -d centos /bin/bash -c <span style="color:#e6db74">&#34;while true; do echo noting; sleep 1; done&#34;</span>
+</code></pre></div><h2 id="root-用户进行容器">root 用户进行容器</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker exec -it --user root &lt;container id&gt; /bin/bash
+</code></pre></div></article>
 
       
-<div class="book-footer justify-end">
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="https://github.com/hello-world-example/Docker/commit/d129e268db6764aafd2d7e84e5bb20e9f41ed4a4" title='Last modified Mar 29, 2020 by 杨凯彬' target="_blank" rel="noopener">
+      <img src="/Docker/svg/calendar.svg" alt="Changed" /> Mar 29, 2020
+    </a>
+  </div>
   
   
   <div>
@@ -125,6 +134,7 @@ https://github.com/alex-shpak/hugo-book
     <nav id="TableOfContents">
   <ul>
     <li><a href="#容器启动后闪退">容器启动后闪退</a></li>
+    <li><a href="#root-用户进行容器">root 用户进行容器</a></li>
   </ul>
 </nav>
   </aside>

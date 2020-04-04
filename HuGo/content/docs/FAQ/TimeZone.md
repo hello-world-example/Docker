@@ -1,5 +1,7 @@
 # 时区设置
 
+
+
 ## 启动后修改
 
 ```bash
@@ -32,7 +34,15 @@ $ docker run -d \
   ...
 ```
 
+## 安装时区数据
 
+- 如果 `/usr/share/zoneinfo` 文件夹不存在，需要先先下载时区数据
+
+- `tzselect`  选择时区时：`/usr/bin/tzselect: time zone files are not set up correctly`
+
+```bash
+$ apt install tzdata
+```
 
 
 

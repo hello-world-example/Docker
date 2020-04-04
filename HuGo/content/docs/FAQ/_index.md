@@ -6,5 +6,15 @@
 
 >  Docker 容器后台运行，就必须有一个前台进程
 
-`docker run -d centos /bin/bash -c "while true; do echo noting; sleep 1; done"`
+```bash
+docker run -d centos /bin/bash -c "while true; do echo noting; sleep 1; done"
+```
+
+
+
+## root 用户进行容器
+
+```bash
+docker exec -it --user root <container id> /bin/bash
+```
 

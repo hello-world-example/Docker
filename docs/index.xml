@@ -44,7 +44,8 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/docs/FAQ/TimeZone/</guid>
-      <description>时区设置 启动后修改 # 查看是否是链接的方式 $ ls -al /etc/localtime xxxx /etc/localtime -&amp;gt; /usr/share/zoneinfo/Asia/Shanghai # 如果不是，链接到指定时区文件，f 强制覆盖 $ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime # 或 复制时区文件 # cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime # 使用宿主机时区 $ docker cp /etc/localtime container_id:/etc/localtime 启动时设置 # 设置时区环境 $ docker run -d \  -e TZ=&amp;#34;Asia/Shanghai&amp;#34; \  ... # 挂载宿主机时区 $ docker run -d \  -v /etc/localtime:/etc/localtime \  ... Read More  主机、Docker时间与时区设置总结  </description>
+      <description>时区设置 启动后修改 # 查看是否是链接的方式 $ ls -al /etc/localtime xxxx /etc/localtime -&amp;gt; /usr/share/zoneinfo/Asia/Shanghai # 如果不是，链接到指定时区文件，f 强制覆盖 $ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime # 或 复制时区文件 # cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime # 使用宿主机时区 $ docker cp /etc/localtime container_id:/etc/localtime 启动时设置 # 设置时区环境 $ docker run -d \  -e TZ=&amp;#34;Asia/Shanghai&amp;#34; \  ... # 挂载宿主机时区 $ docker run -d \  -v /etc/localtime:/etc/localtime \  ... 安装时区数据   如果 /usr/share/zoneinfo 文件夹不存在，需要先先下载时区数据
+  tzselect 选择时区时：/usr/bin/tzselect: time zone files are not set up correctly</description>
     </item>
     
   </channel>

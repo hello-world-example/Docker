@@ -118,6 +118,16 @@ $ docker run -d <span style="color:#ae81ff">\
 $ docker run -d <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -v /etc/localtime:/etc/localtime <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  ...
+</code></pre></div><h2 id="安装时区数据">安装时区数据</h2>
+<ul>
+<li>
+<p>如果 <code>/usr/share/zoneinfo</code> 文件夹不存在，需要先先下载时区数据</p>
+</li>
+<li>
+<p><code>tzselect</code>  选择时区时：<code>/usr/bin/tzselect: time zone files are not set up correctly</code></p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ apt install tzdata
 </code></pre></div><h2 id="read-more">Read More</h2>
 <ul>
 <li><a href="https://www.cnblogs.com/zengming/p/10190317.html">主机、Docker时间与时区设置总结</a></li>
@@ -125,7 +135,14 @@ $ docker run -d <span style="color:#ae81ff">\
 </article>
 
       
-<div class="book-footer justify-end">
+<div class="book-footer justify-between">
+  
+  <div>
+    
+    <a href="https://github.com/hello-world-example/Docker/commit/d129e268db6764aafd2d7e84e5bb20e9f41ed4a4" title='Last modified Mar 29, 2020 by 杨凯彬' target="_blank" rel="noopener">
+      <img src="/Docker/svg/calendar.svg" alt="Changed" /> Mar 29, 2020
+    </a>
+  </div>
   
   
   <div>
@@ -148,6 +165,7 @@ $ docker run -d <span style="color:#ae81ff">\
   <ul>
     <li><a href="#启动后修改">启动后修改</a></li>
     <li><a href="#启动时设置">启动时设置</a></li>
+    <li><a href="#安装时区数据">安装时区数据</a></li>
     <li><a href="#read-more">Read More</a></li>
   </ul>
 </nav>
