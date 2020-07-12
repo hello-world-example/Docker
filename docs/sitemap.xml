@@ -53,6 +53,15 @@
   </url>
   
   <url>
+    <loc>https://hello-world-example.github.io/Docker/docs/Images/Nginx/</loc>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Docker/TODO/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://hello-world-example.github.io/Docker/categories/</loc>
   </url>
   

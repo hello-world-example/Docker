@@ -15,7 +15,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/docs/Action/docker-compose/</guid>
-      <description>docker-compose Read More    </description>
+      <description>docker-compose Read More   Get started with Docker Compose  </description>
     </item>
     
     <item>
@@ -49,7 +49,8 @@ Read More  官方文档 dockerd  Docker 远程连接 &amp;ndash; dockerd 命令�
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/docs/Action/Dockerfile/</guid>
-      <description>Dockerfile 基础指令 常见问题 hosts ?? DNS?? Read More   Dockerfile reference   </description>
+      <description>Dockerfile 指令  指令不区分大小写，但是建议使用 大写，便于跟参数区分开 按顺序执行 Dockerfile 中的指令 必须以 FROM 开头，ARG 除外 为了兼容行，会忽略 # 和 指令 前面的空格，但是 不建议 注释 和 指令前面加空格  ARG  接收 docker build --build-arg &amp;lt;varname&amp;gt;=&amp;lt;value&amp;gt; 参数 唯一已和可以出现在 FROM 指令前的指令  ARG JDK_VERSION=8u102 FROMopenjdk:${JDK_VERSION}FROM 指定基础镜像
+   类型 常用基础镜像 简介      操作系统 busybox 超级简化版嵌入式 Linux 系统    操作系统 alpine     操作系统 centos     操作系统 ubuntu           Java openjdk:8u102 JDK https://hub.</description>
     </item>
     
     <item>
@@ -79,6 +80,15 @@ Read More  官方文档 dockerd  Docker 远程连接 &amp;ndash; dockerd 命令�
       
       <guid>https://hello-world-example.github.io/Docker/docs/Core/Chroot/</guid>
       <description>chroot Read More   理解 chroot  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Docker/docs/Images/Nginx/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Docker/docs/Images/Nginx/</guid>
+      <description>Nginx 目录结构 . ├── Dockerfile ├── conf.d │ └── default.conf └── docker-compose.yml Dockerfile FROMnginxMAINTAINERMr.Kail# WORKDIR /EXPOSE80# 删除容器内 Nginx 配置文件RUN rm /etc/nginx/conf.d/default.conf# 把配置文件拷贝到容器内ADD ./conf.d/default.conf /etc/nginx/conf.d/default.conf# 启动 nginxRUN nginx# docker build -t kail/nginx .docker-compose.yml version: &amp;#39;2&amp;#39; services: kail: build: . restart: always # 端口是 80 ports: - &amp;#34;80:80&amp;#34; #  volumes: - &amp;#34;/opt/data/docker-volume/nginx/html:/tmp/html&amp;#34; # docker-compose up -d # docker run -d -p 80:80 -v /opt/data/docker-volume/nginx/html:/tmp/html --name nginx_kail kail/nginx # docker run -d -p 80:80 -v /opt/data/docker-volume/nginx/html:/tmp/html --name nginx_kail nginx_kail conf.</description>
     </item>
     
   </channel>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Nginx 目录结构 . ├── Dockerfile ├── conf.d │ └── default.conf └── docker-compose.yml Dockerfile FROMnginxMAINTAINERMr.Kail# WORKDIR /EXPOSE80# 删除容器内 Nginx 配置文件RUN rm /etc/nginx/conf.d/default.conf# 把配置文件拷贝到容器内ADD ./conf.d/default.conf /etc/nginx/conf.d/default.conf# 启动 nginxRUN nginx# docker build -t kail/nginx .docker-compose.yml version: &#39;2&#39; services: kail: build: . restart: always # 端口是 80 ports: - &#34;80:80&#34; #  volumes: - &#34;/opt/data/docker-volume/nginx/html:/tmp/html&#34; # docker-compose up -d # docker run -d -p 80:80 -v /opt/data/docker-volume/nginx/html:/tmp/html --name nginx_kail kail/nginx # docker run -d -p 80:80 -v /opt/data/docker-volume/nginx/html:/tmp/html --name nginx_kail nginx_kail conf."><meta property="og:title" content="" />
+<meta property="og:description" content="Nginx 目录结构 . ├── Dockerfile ├── conf.d │ └── default.conf └── docker-compose.yml Dockerfile FROMnginxMAINTAINERMr.Kail# WORKDIR /EXPOSE80# 删除容器内 Nginx 配置文件RUN rm /etc/nginx/conf.d/default.conf# 把配置文件拷贝到容器内ADD ./conf.d/default.conf /etc/nginx/conf.d/default.conf# 启动 nginxRUN nginx# docker build -t kail/nginx .docker-compose.yml version: &#39;2&#39; services: kail: build: . restart: always # 端口是 80 ports: - &#34;80:80&#34; #  volumes: - &#34;/opt/data/docker-volume/nginx/html:/tmp/html&#34; # docker-compose up -d # docker run -d -p 80:80 -v /opt/data/docker-volume/nginx/html:/tmp/html --name nginx_kail kail/nginx # docker run -d -p 80:80 -v /opt/data/docker-volume/nginx/html:/tmp/html --name nginx_kail nginx_kail conf." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/Images/Nginx/" />
+
+<title>Nginx | Docker</title>
+<link rel="icon" href="/Docker/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Docker/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Docker"><span>Docker</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><strong>核心概念</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Core/Cgroups/">cgroups</a></li>
+<li>
+  <a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
+</ul>
+</li>
+<li><strong>Action</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Action/Dockerfile/">Dockerfile</a></li>
+</ul>
+</li>
+<li>
+  <a href="/Docker/docs/FAQ/"><strong>常见问题..</strong></a>
+<ul>
+<li>
+  <a href="/Docker/docs/FAQ/TimeZone/">时区设置</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Docker/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Nginx</strong>
+
+  <label for="toc-control">
+    <img src="/Docker/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#nginx">Nginx</a>
+      <ul>
+        <li><a href="#目录结构">目录结构</a></li>
+        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#docker-composeyml">docker-compose.yml</a></li>
+        <li><a href="#confddefaultconf">conf.d/default.conf</a></li>
+        <li><a href="#运行">运行</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="nginx">Nginx</h1>
+<h2 id="目录结构">目录结构</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.
+├── Dockerfile
+├── conf.d
+│   └── default.conf
+└── docker-compose.yml
+</code></pre></div><h2 id="dockerfile">Dockerfile</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> nginx</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">MAINTAINER</span><span style="color:#e6db74"> Mr.Kail</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># WORKDIR /</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 80</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 删除容器内 Nginx 配置文件</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> rm /etc/nginx/conf.d/default.conf<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 把配置文件拷贝到容器内</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> ./conf.d/default.conf /etc/nginx/conf.d/default.conf<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 启动 nginx</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> nginx<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># docker build -t kail/nginx .</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h2 id="docker-composeyml">docker-compose.yml</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#39;2&#39;</span>
+<span style="color:#66d9ef">services</span>:
+  <span style="color:#66d9ef">kail</span>:
+    <span style="color:#66d9ef">build</span>: .
+    <span style="color:#66d9ef">restart</span>: always
+
+    <span style="color:#75715e"># 端口是 80</span>
+    <span style="color:#66d9ef">ports</span>:
+     - <span style="color:#e6db74">&#34;80:80&#34;</span>
+    
+    <span style="color:#75715e"># </span>
+    <span style="color:#66d9ef">volumes</span>:
+     - <span style="color:#e6db74">&#34;/opt/data/docker-volume/nginx/html:/tmp/html&#34;</span>
+  
+<span style="color:#75715e"># docker-compose up -d</span>
+<span style="color:#75715e"># docker run -d -p 80:80 -v /opt/data/docker-volume/nginx/html:/tmp/html --name nginx_kail kail/nginx</span>
+<span style="color:#75715e"># docker run -d -p 80:80 -v /opt/data/docker-volume/nginx/html:/tmp/html --name nginx_kail nginx_kail</span>
+</code></pre></div><h2 id="confddefaultconf">conf.d/default.conf</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">server</span> {
+    <span style="color:#f92672">listen</span>       <span style="color:#ae81ff">80</span>;
+    <span style="color:#f92672">server_name</span>  <span style="color:#e6db74">localhost</span>;
+
+    <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+        <span style="color:#f92672">root</span>   <span style="color:#e6db74">/tmp/html</span>;
+        <span style="color:#f92672">index</span>  <span style="color:#e6db74">index.html</span> <span style="color:#e6db74">index.htm</span>;
+    }
+}
+</code></pre></div><p><code>docker pull nginx</code> 拉下来的镜像，启动之后配置文件在 <code>/etc/nginx/nginx.conf</code>，其会 <code>include</code> <code>/etc/nginx/conf.d/</code> 下的 <code>*.conf</code> 配置，Dockerfile 中拷贝了自定义的 <code>default.conf</code> 到该目录下。</p>
+<p><code>/etc/nginx/nginx.conf</code> 内容摘录如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx">
+<span style="color:#66d9ef">...</span>
+
+<span style="color:#e6db74">http</span> {
+    <span style="color:#f92672">include</span>       <span style="color:#e6db74">/etc/nginx/mime.types</span>;
+    
+    <span style="color:#f92672">...</span>
+
+    <span style="color:#e6db74">include</span> <span style="color:#e6db74">/etc/nginx/conf.d/*.conf</span>;
+}
+
+</code></pre></div><h2 id="运行">运行</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker-compose up -d
+</code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/Images/Nginx.md" target="_blank" rel="noopener">
+      <img src="/Docker/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#nginx">Nginx</a>
+      <ul>
+        <li><a href="#目录结构">目录结构</a></li>
+        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#docker-composeyml">docker-compose.yml</a></li>
+        <li><a href="#confddefaultconf">conf.d/default.conf</a></li>
+        <li><a href="#运行">运行</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

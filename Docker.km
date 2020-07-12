@@ -1,0 +1,493 @@
+{
+    "root": {
+        "data": {
+            "id": "c44i2crz7g80",
+            "created": 1594542284213,
+            "text": "Docker"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "c44i2lbowo00",
+                    "created": 1594542302820,
+                    "text": "常规"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c44i2lbq40o0",
+                            "created": 1594542302822,
+                            "text": "version"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c44i2lbq7k00",
+                                    "created": 1594542302822,
+                                    "text": "-v --version"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c44j2n6sxls0",
+                    "created": 1594545127988,
+                    "text": "备份恢复"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c44j2n6thbs0",
+                            "created": 1594545127989,
+                            "text": "本地"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c44j2n6tt9c0",
+                                    "created": 1594545127989,
+                                    "text": "commit -p <container_id/container_name> <image_name>"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c44j2n6tzcw0",
+                                            "created": 1594545127989,
+                                            "text": "-m, --message string   Commit message"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "c44j2n6u4200",
+                                            "created": 1594545127990,
+                                            "text": " -p, --pause            Pause container during commit (default true)"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2n6ujzs0",
+                                    "created": 1594545127990,
+                                    "text": "export <container_id> > /home/export.tar"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2n6u34o0",
+                                    "created": 1594545127990,
+                                    "text": "cat /home/export.tar | sudo docker import - busybox-1-export:latest"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2n6ub0g0",
+                                    "created": 1594545127990,
+                                    "text": "save [OPTIONS] IMAGE [IMAGE...]"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c44j2n6u6ts0",
+                                            "created": 1594545127990,
+                                            "text": "-o, --output string   Write to a file, instead of STDOUT"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "c44j2n6urkw0",
+                                            "created": 1594545127991,
+                                            "text": "例子： docker save -o ~/container-backup.tar container-backup"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2n6ux7k0",
+                                    "created": 1594545127991,
+                                    "text": "load [OPTIONS]"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c44j2n6v1ls0",
+                                            "created": 1594545127991,
+                                            "text": "-i, --input string   Read from tar archive file, instead of STDIN"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "c44j2n6upsg0",
+                                            "created": 1594545127991,
+                                            "text": "docker load -i ~/container-backup.tar"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2n6uzhc0",
+                                    "created": 1594545127991,
+                                    "text": "导出后再导入的方式，你将无法回滚到之前的层(layer)"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2n6vfzk0",
+                                    "created": 1594545127992,
+                                    "text": "保存后再加载的方式持久化整个镜像，就可以做到层回滚"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c44j2n6vjdc0",
+                            "created": 1594545127992,
+                            "text": "仓库"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c44j2n6vqpc0",
+                                    "created": 1594545127992,
+                                    "text": "docker login"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c44j2n6vqvc0",
+                                            "created": 1594545127992,
+                                            "text": "登陆 Docker Hub"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2n6voyg0",
+                                    "created": 1594545127992,
+                                    "text": "docker push <仓库名>/<镜像名>:<版本>"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2n6w4740",
+                                    "created": 1594545127993,
+                                    "text": "docker run -d -p 5000:5000 --restart=always --name registry2  registry:2"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2n6w0e00",
+                                    "created": 1594545127993,
+                                    "text": "docker tag <仓库名>/<镜像名>:<版本>  localhost:5000/<仓库名>/<镜像名>:<版本>"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2n6wy340",
+                                    "created": 1594545127994,
+                                    "text": "docker push localhost:5000/<仓库名>/<镜像名>:<版本>"
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c44j2tqw7200",
+                    "created": 1594545142263,
+                    "text": "in action"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c44j2tqw4z40",
+                            "created": 1594545142263,
+                            "text": "查看容器的root用户密码"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c44j2tqwh080",
+                                    "created": 1594545142264,
+                                    "text": "docker logs <容器名orID> 2>&1 | grep '^User: ' | tail -n1"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2tqwvwg0",
+                                    "created": 1594545142264,
+                                    "text": "容器启动时的root用户的密码是随机分配的"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c44j2tqwsww0",
+                            "created": 1594545142264,
+                            "text": "运行中的容器添加映射端口"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c44j2tqwqmw0",
+                                    "created": 1594545142264,
+                                    "text": "iptable"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c44j2tqx0ls0",
+                                            "created": 1594545142264,
+                                            "text": "docker inspect `container_name` | grep IPAddress"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "c44j2tqws6o0",
+                                            "created": 1594545142264,
+                                            "text": "iptables -t nat -A  DOCKER -p tcp --dport 8001 -j DNAT --to-destination 172.17.0.19:8000"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2tqxhnc0",
+                                    "created": 1594545142265,
+                                    "text": "容器->镜像->容器"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c44j2tqx2rc0",
+                                            "created": 1594545142265,
+                                            "text": "提交一个运行中的容器为镜像"
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "id": "c44j2tqxi1c0",
+                                            "created": 1594545142265,
+                                            "text": "运行镜像并添加端口"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c44j2tqxjk00",
+                    "created": 1594545142265,
+                    "text": "镜像"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c44j2tqxbu00",
+                            "created": 1594545142265,
+                            "text": "search"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c44j2tqxagg0",
+                            "created": 1594545142265,
+                            "text": "images"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c44j2tqy6kg0",
+                                    "created": 1594545142266,
+                                    "text": "-a --all "
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2tqy7vc0",
+                                    "created": 1594545142266,
+                                    "text": "--tree"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2tqxuds0",
+                                    "created": 1594545142266,
+                                    "text": "--help"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c44j2tqy4600",
+                            "created": 1594545142266,
+                            "text": "rmi"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c44j2tqxobk0",
+                                    "created": 1594545142266,
+                                    "text": "docker rmi $(docker images | grep none | awk '{print $3}' | sort -r)"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c44j2tqy3x40",
+                            "created": 1594545142266,
+                            "text": "pull"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c44j2tqy2gw0",
+                            "created": 1594545142266,
+                            "text": "tag"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c44j2tqym9s0",
+                            "created": 1594545142267,
+                            "text": "build"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c44j2tqyhqo0",
+                                    "created": 1594545142267,
+                                    "text": "docker build -t <镜像名> <Dockerfile路径>"
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2tqysz40",
+                                    "created": 1594545142267,
+                                    "text": "docker build -t xx/gitlab ."
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c44j2tqyqkg0",
+                    "created": 1594545142267,
+                    "text": "资源"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c44j2tqy9140",
+                            "created": 1594545142267,
+                            "text": "仓库"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c44j2tqydqg0",
+                                    "created": 1594545142267,
+                                    "text": "网易蜂巢景象中心"
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "id": "c44j2tqyeg00",
+                            "created": 1594545142267,
+                            "text": "镜像"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "c44j2tqyrt40",
+                                    "created": 1594545142267,
+                                    "text": "centos"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c44j2tqz7480",
+                                            "created": 1594545142268,
+                                            "text": "docker pull hub.c.163.com/public/centos:6.5"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "id": "c44j2tqz3gg0",
+                                    "created": 1594545142268,
+                                    "text": "ubuntu"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "c44j2tqz5pc0",
+                                            "created": 1594545142268,
+                                            "text": "docker pull hub.c.163.com/public/ubuntu:16.04"
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "default",
+    "theme": "classic",
+    "version": "1.4.43"
+}

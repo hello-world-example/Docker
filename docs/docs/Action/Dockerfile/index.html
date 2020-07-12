@@ -4,8 +4,10 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Dockerfile 基础指令 常见问题 hosts ?? DNS?? Read More   Dockerfile reference   "><meta property="og:title" content="" />
-<meta property="og:description" content="Dockerfile 基础指令 常见问题 hosts ?? DNS?? Read More   Dockerfile reference   " />
+<meta name="description" content="Dockerfile 指令  指令不区分大小写，但是建议使用 大写，便于跟参数区分开 按顺序执行 Dockerfile 中的指令 必须以 FROM 开头，ARG 除外 为了兼容行，会忽略 # 和 指令 前面的空格，但是 不建议 注释 和 指令前面加空格  ARG  接收 docker build --build-arg &lt;varname&gt;=&lt;value&gt; 参数 唯一已和可以出现在 FROM 指令前的指令  ARG JDK_VERSION=8u102 FROMopenjdk:${JDK_VERSION}FROM 指定基础镜像
+   类型 常用基础镜像 简介      操作系统 busybox 超级简化版嵌入式 Linux 系统    操作系统 alpine     操作系统 centos     操作系统 ubuntu           Java openjdk:8u102 JDK https://hub."><meta property="og:title" content="" />
+<meta property="og:description" content="Dockerfile 指令  指令不区分大小写，但是建议使用 大写，便于跟参数区分开 按顺序执行 Dockerfile 中的指令 必须以 FROM 开头，ARG 除外 为了兼容行，会忽略 # 和 指令 前面的空格，但是 不建议 注释 和 指令前面加空格  ARG  接收 docker build --build-arg &lt;varname&gt;=&lt;value&gt; 参数 唯一已和可以出现在 FROM 指令前的指令  ARG JDK_VERSION=8u102 FROMopenjdk:${JDK_VERSION}FROM 指定基础镜像
+   类型 常用基础镜像 简介      操作系统 busybox 超级简化版嵌入式 Linux 系统    操作系统 alpine     操作系统 centos     操作系统 ubuntu           Java openjdk:8u102 JDK https://hub." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/Action/Dockerfile/" />
 <meta property="article:modified_time" content="2020-07-09T19:06:28+08:00" />
@@ -53,6 +55,12 @@ https://github.com/alex-shpak/hugo-book
   <a href="/Docker/docs/Core/Cgroups/">cgroups</a></li>
 <li>
   <a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
+</ul>
+</li>
+<li><strong>Action</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Action/Dockerfile/"class=active>Dockerfile</a></li>
 </ul>
 </li>
 <li>
@@ -108,11 +116,34 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#dockerfile">Dockerfile</a>
       <ul>
-        <li><a href="#基础指令">基础指令</a></li>
+        <li><a href="#指令">指令</a>
+          <ul>
+            <li><a href="#arg">ARG</a></li>
+            <li><a href="#from">FROM</a></li>
+            <li><a href="#maintainer-deprecated">MAINTAINER (deprecated)</a></li>
+            <li><a href="#label">LABEL</a></li>
+            <li><a href="#env">ENV</a></li>
+            <li><a href="#expose">EXPOSE</a></li>
+            <li><a href="#workdir">WORKDIR</a></li>
+            <li><a href="#user">USER</a></li>
+            <li><a href="#run">RUN</a></li>
+            <li><a href="#add">ADD</a></li>
+            <li><a href="#copy">COPY</a></li>
+            <li><a href="#cmd">CMD</a></li>
+            <li><a href="#entrypoint">ENTRYPOINT</a></li>
+            <li><a href="#shell">SHELL</a></li>
+            <li><a href="#onbuild-模板镜像">ONBUILD 模板镜像</a></li>
+            <li><a href="#volume">VOLUME</a></li>
+            <li><a href="#healthcheck-健康检查">HEALTHCHECK 健康检查</a></li>
+          </ul>
+        </li>
+        <li><a href="#构建方法">构建方法</a></li>
+        <li><a href="#dockerignore">.dockerignore</a></li>
         <li><a href="#常见问题">常见问题</a>
           <ul>
-            <li><a href="#hosts-">hosts ??</a></li>
-            <li><a href="#dns">DNS??</a></li>
+            <li><a href="#runcmdentrypoint-的区别"><code>RUN</code>、<code>CMD</code>、<code>ENTRYPOINT</code> 的区别</a></li>
+            <li><a href="#addcopy-的区别"><code>ADD</code>、<code>COPY</code> 的区别</a></li>
+            <li><a href="#指令格式shellexec">指令格式：Shell、Exec</a></li>
           </ul>
         </li>
         <li><a href="#read-more">Read More</a></li>
@@ -130,15 +161,350 @@ https://github.com/alex-shpak/hugo-book
       
       
   <article class="markdown"><h1 id="dockerfile">Dockerfile</h1>
-<h2 id="基础指令">基础指令</h2>
-<h2 id="常见问题">常见问题</h2>
-<h3 id="hosts-">hosts ??</h3>
-<h3 id="dns">DNS??</h3>
+<h2 id="指令">指令</h2>
+<ul>
+<li>指令不区分大小写，但是<strong>建议使用 大写，便于跟参数区分开</strong></li>
+<li>按顺序执行 Dockerfile 中的指令</li>
+<li>必须以 <code>FROM</code> 开头，<code>ARG</code> 除外</li>
+<li>为了兼容行，会忽略 <code>#</code> 和 <code>指令</code> 前面的空格，但是 <strong>不建议 注释 和 指令前面加空格</strong></li>
+</ul>
+<h3 id="arg">ARG</h3>
+<ul>
+<li>接收  <code>docker build --build-arg &lt;varname&gt;=&lt;value&gt;</code> 参数</li>
+<li>唯一已和可以出现在 <code>FROM</code> 指令前的指令</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">ARG</span> JDK_VERSION<span style="color:#f92672">=</span>8u102
+<span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> openjdk:${JDK_VERSION}</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="from">FROM</h3>
+<p>指定基础镜像</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>常用基础镜像</th>
+<th>简介</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>操作系统</td>
+<td>busybox</td>
+<td>超级简化版嵌入式 Linux 系统</td>
+<td></td>
+</tr>
+<tr>
+<td>操作系统</td>
+<td>alpine</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>操作系统</td>
+<td>centos</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>操作系统</td>
+<td>ubuntu</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Java</td>
+<td>openjdk:8u102</td>
+<td>JDK</td>
+<td><a href="https://hub.docker.com/_/openjdk/">https://hub.docker.com/_/openjdk/</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="maintainer-deprecated"><del>MAINTAINER (deprecated)</del></h3>
+<ul>
+<li>
+<p>设置生成镜像的作者信息</p>
+</li>
+<li>
+<p><code>LABEL</code> 指令更灵活，应该使用它，如：<code>maintainer=&quot;Kail.xyz&quot;</code></p>
+</li>
+<li>
+<p>可以通过 <code>docker inspect</code> 看到</p>
+</li>
+</ul>
+<h3 id="label">LABEL</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">LABEL</span> <span style="color:#e6db74">&#34;com.example.vendor&#34;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ACME Incorporated&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">LABEL</span> com.example.label-with-value<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foo&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">LABEL</span> version<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1.0&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">LABEL</span> multi.label1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;value1&#34;</span> multi.label2<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;value2&#34;</span> other<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;value3&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>通过 <code>docker image inspect myimage</code> 查看镜像 <code>label</code> 信息</p>
+<h3 id="env">ENV</h3>
+<p>指定环境变量</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">ENV</span> abc<span style="color:#f92672">=</span>hello
+<span style="color:#66d9ef">ENV</span> abc<span style="color:#f92672">=</span>bye def<span style="color:#f92672">=</span>$abc<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> ghi<span style="color:#f92672">=</span>$abc<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> ${abc}   # WORKDIR /hello</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="expose">EXPOSE</h3>
+<ul>
+<li><strong>声明容器应该打开的端口，并没有实际上将它打开</strong></li>
+<li>作用是 构建映像的人 和 运行容器的人 之间的一种文档形式</li>
+<li>发布哪些端口，要在运行容器时 使用 <code>docker run -p</code> 标志发布和映射一个或多个端口</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#75715e"># 默认 TCP</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 80</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 指定类型</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 80/tcp</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 80/udp</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="workdir">WORKDIR</h3>
+<ul>
+<li>跟随它的任何 RUN、CMD、ENTRYPOINT、COPY 和 ADD 指令设置工作目录</li>
+<li>WORKDIR 指令可以在多次使用</li>
+<li>如果提供了相对路径，则该路径将相对于上一个 WORKDIR 指令的路径</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /a</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> b</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> c</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># /a/b/c</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pwd <span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="user">USER</h3>
+<p>指定运行时的用户</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">USER</span><span style="color:#e6db74"> &lt;user&gt;[:&lt;group&gt;]</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">USER</span><span style="color:#e6db74"> &lt;UID&gt;[:&lt;GID&gt;]</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="run">RUN</h3>
+<ul>
+<li>在构建镜像时，对镜像内的内容进行修改</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#75715e"># json 格式，必须使用双引号</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/bin/bash&#34;</span>, <span style="color:#e6db74">&#34;-c&#34;</span>, <span style="color:#e6db74">&#34;echo hello&#34;</span><span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> /bin/bash -c <span style="color:#e6db74">&#39;source $HOME/.bashrc; echo $HOME&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> /bin/bash -c <span style="color:#e6db74">&#39;source $HOME/.bashrc; \
+</span><span style="color:#e6db74">echo $HOME&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> --no-cache /bin/bash -c <span style="color:#e6db74">&#39;echo &#34;&#34; &gt; /opt/logs/demo.log&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="add">ADD</h3>
+<ul>
+<li><code>&lt;src&gt;</code> 路径必须在构建的上下文中，不能是 <code>ADD ../something /something</code>，因为 <code>docker build</code> 的第一步是吧上下文和子目录发送给 Docker 守护进程</li>
+<li><code>&lt;src&gt;</code> 如果是本地的 <code>tar</code> 格式的压缩文件( <code>gzip</code>, <code>bzip2</code> or <code>xz</code>)，会自动解压，识别不是通过文件名，而是文件内容</li>
+<li>如果 <code>&lt;dest&gt;</code> 不是以 <code>/</code> 结尾，则代表是普通文件，<code>&lt;src&gt;</code>  内容将写入 <code>&lt;dest&gt;</code></li>
+<li>如果 <code>&lt;dest&gt;</code> 不存在，会自动创建</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">ADD</span> hom?.txt /mydir/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># &lt;WORKDIR&gt;/relativeDir/</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> test.txt relativeDir/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 如果文件名是 arr[0].txt</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> arr<span style="color:#f92672">[[]</span>0<span style="color:#f92672">]</span>.txt /mydir/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 指定权限</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> --chown<span style="color:#f92672">=</span>55:mygroup files* /somedir/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> --chown<span style="color:#f92672">=</span>bin files* /somedir/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> --chown<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> files* /somedir/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> --chown<span style="color:#f92672">=</span>10:11 files* /somedir/<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="copy">COPY</h3>
+<ul>
+<li>格式同 <code>ADD</code></li>
+<li>单纯的 复制，不会像 <code>ADD</code> 那样有 自动解压、远程下载 等功能</li>
+</ul>
+<h3 id="cmd">CMD</h3>
+<ul>
+<li>只能有一条 <code>CMD</code> 指令，如果列出多个命令，则只有最后一个命令生效</li>
+<li>主要用途是<strong>为容器提供默认值</strong></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;可执行文件或命令&#34;</span>,<span style="color:#e6db74">&#34;param1&#34;</span>,<span style="color:#e6db74">&#34;param2&#34;</span>] <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 为 ENTRYPOINT 提供默认参数</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;param1&#34;</span>,<span style="color:#e6db74">&#34;param2&#34;</span>] <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># shell 命令</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> command param1 param2 <span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="entrypoint">ENTRYPOINT</h3>
+<ul>
+<li>ENTRYPOINT 中的参数始终会被使用，而 CMD 的额外参数可以在容器启动时动态替换掉</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;/bin/echo&#34;</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>]  <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker run -it <span style="color:#f92672">[</span>image<span style="color:#f92672">]</span> <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>Hello<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker run -it <span style="color:#f92672">[</span>image<span style="color:#f92672">]</span> CloudMan<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>Hello CloudMan<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># ---------------------------</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;/bin/echo&#34;</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>]  <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;world&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker run -it <span style="color:#f92672">[</span>image<span style="color:#f92672">]</span> <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>Hello world<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker run -it <span style="color:#f92672">[</span>image<span style="color:#f92672">]</span> CloudMan<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>Hello CloudMan<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="shell">SHELL</h3>
+<ul>
+<li>用于重写默认 <code>Shell</code>
+<ul>
+<li>Linux 默认： <code>[&quot;/bin/sh&quot;, &quot;-c&quot;]</code></li>
+<li>Windows 默认： <code>[&quot;cmd&quot;, &quot;/S&quot;, &quot;/C&quot;]</code></li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> microsoft/windowsservercore</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Executed as cmd /S /C echo default</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> echo default<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Executed as cmd /S /C powershell -command Write-Host default</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> powershell -command Write-Host default<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Executed as powershell -command Write-Host hello</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">SHELL</span> [<span style="color:#e6db74">&#34;powershell&#34;</span>, <span style="color:#e6db74">&#34;-command&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> Write-Host hello<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Executed as cmd /S /C echo hello</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">SHELL</span> [<span style="color:#e6db74">&#34;cmd&#34;</span>, <span style="color:#e6db74">&#34;/S&#34;</span>, <span style="color:#e6db74">&#34;/C&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> echo hello<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="onbuild-模板镜像">ONBUILD 模板镜像</h3>
+<ul>
+<li><code>ONBUILD</code> 指令对 当前构建的镜像 A 不会产生影响</li>
+<li>当镜像 B 基于 镜像 A 构建时，这时镜像 A Dockerfile 中的 <code>ONBUILD</code> 就会生效</li>
+<li>在构建 镜像B 的过程中，首先会执行 <code>ONBUILD</code> 指令指定的指令，然后才会执行其它指令</li>
+<li>再利用 镜像B 构造新的镜像时，<code>ONBUILD</code> 指令就无效了，即：<strong>在构建子镜像中执行，对孙子镜像构建无效</strong></li>
+</ul>
+<h3 id="volume">VOLUME</h3>
+<ul>
+<li>可以在镜像中创建挂载点，要通过该镜像创建的容器都有了挂载点</li>
+<li>VOLUME 指令创建的挂载点，无法指定主机上对应的目录，是自动生成的</li>
+<li>通过 <code>docker inspect</code> 的 <code>Mounts.Source</code> 查看宿主机上生成的路径</li>
+<li><code>docker run</code>
+<ul>
+<li><code>-v /opt/data/myimage:/data</code> 指定宿主机的挂载点</li>
+<li><code>-v /data</code> 自动在宿主机上生成挂载点</li>
+<li><code>--volumes-from 容器1</code> 与 <code>容器1</code> 共享挂载点</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">VOLUME</span> [<span style="color:#e6db74">&#34;/data1&#34;</span>,<span style="color:#e6db74">&#34;/data2&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="healthcheck-健康检查">HEALTHCHECK 健康检查</h3>
+<ul>
+<li><code>HEALTHCHECK NONE</code> 禁用基础镜像的健康检查</li>
+<li>格式 <code>HEALTHCHECK [OPTIONS] CMD command</code>
+<ul>
+<li><code>--interval=DURATION</code> (default: <code>30s</code>)</li>
+<li><code>--timeout=DURATION</code> (default: <code>30s</code>)</li>
+<li><code>--start-period=DURATION</code> (default: <code>0s</code>)</li>
+<li><code>--retries=N</code> (default: <code>3</code>)</li>
+</ul>
+</li>
+<li>状态
+<ul>
+<li><code>0</code>: <code>success</code> 正常</li>
+<li><code>1</code>: <code>unhealthy</code> 不正常</li>
+<li><del><code>2</code>: <code>reserved</code> 不要使用</del></li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#960050;background-color:#1e0010">HEALTHCHECK --interval=5m --timeout=3s </span><span style="color:#66d9ef">CMD</span> curl -f http://localhost/ <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h2 id="构建方法">构建方法</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker build .
+
+<span style="color:#75715e"># 指定 Dockerfile</span>
+$ docker build -f /path/Dockerfile .
+
+<span style="color:#75715e"># 指定镜像名</span>
+$ docker build -t demo/kail .
+<span style="color:#75715e"># 多个镜像</span>
+$ docker build -t demo/kail:1.0.0 -t demo/kail:latest .
+</code></pre></div><h2 id="dockerignore">.dockerignore</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># comment</span>
+*/temp*
+*/*/temp*
+temp?
+
+<span style="color:#75715e"># 排除 md，但不排除 README.md</span>
+*.md
+!README.md
+</code></pre></div><h2 id="常见问题">常见问题</h2>
+<h3 id="runcmdentrypoint-的区别"><code>RUN</code>、<code>CMD</code>、<code>ENTRYPOINT</code> 的区别</h3>
+<ul>
+<li><code>RUN</code> 是在 Build 时运行的，在构建镜像时对镜像内容进行修改可以用 <code>RUN</code>，先于 <code>CMD</code> 和 <code>ENTRYPOINT</code></li>
+<li><code>ENTRYPOINT</code> 和 <code>CMD</code> 的不同点在于执行 <code>docker run</code> 时参数传递方式
+<ul>
+<li><code>CMD</code> 指定的命令可以被 <code>docker run</code> 传递的命令覆盖，相当于默认指令</li>
+<li><code>ENTRYPOINT</code> 会把容器名后面的所有内容都当成参数传递给其指定的命令，不会被覆盖</li>
+</ul>
+</li>
+<li><code>ENTRYPOINT</code> 个Dockerfile 只能出现一个，如果有多个，最后一个生效</li>
+</ul>
+<blockquote>
+<ul>
+<li>
+  <a href="https://segmentfault.com/q/1010000000417103">Dockerfile里指定执行命令用ENTRYPOING和用CMD有何不同？</a></li>
+<li>
+  <a href="https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact">Understand how CMD and ENTRYPOINT interact</a></li>
+</ul>
+</blockquote>
+<h3 id="addcopy-的区别"><code>ADD</code>、<code>COPY</code> 的区别</h3>
+<ul>
+<li><code>ADD</code> 和 <code>COPY</code> 的作用都是把文件复制到镜像中</li>
+<li><code>COPY</code> 的功能比较单纯，仅仅就是字面意思的复制</li>
+<li><code>ADD</code> 相对来说功能多一点，如果复制的是压缩包，会自动解压，如果是一个URL，会自动下载文件到镜像中</li>
+<li>选择的话<strong>建议使用 <code>COPY</code>，因为 <code>ADD</code> 相对来说有一定的歧义</strong>
+<ul>
+<li>例如你想复制一个压缩包到Docker容器，但是压缩格式繁多，结果有可能解压有可能不解压</li>
+</ul>
+</li>
+<li><code>ADD</code> 的下载功能完全可以通过 <code>curl</code> 或者 <code>wget</code> 来搞定</li>
+</ul>
+<blockquote>
+<p>
+  <a href="http://blog.csdn.net/liukuan73/article/details/52936045">Dockerfile: ADD vs COPY</a></p>
+</blockquote>
+<h3 id="指令格式shellexec">指令格式：Shell、Exec</h3>
+<ul>
+<li>Shell 如：
+<ul>
+<li><code>RUN apt-get install python3</code></li>
+<li><code>CMD echo &quot;Hello world&quot;</code></li>
+<li><code>ENTRYPOINT echo &quot;Hello world&quot;</code></li>
+<li><strong>底层调用</strong>： <code>/bin/sh -c &lt;command&gt;</code></li>
+</ul>
+</li>
+<li>Exec 如：
+<ul>
+<li><code>RUN [&quot;apt-get&quot;, &quot;install&quot;, &quot;python3&quot;]</code></li>
+<li><code>CMD [&quot;/bin/echo&quot;, &quot;Hello world&quot;]</code></li>
+<li><code>ENTRYPOINT [&quot;/bin/echo&quot;, &quot;Hello world&quot;]</code></li>
+<li><strong>不会被 Shell 解析</strong></li>
+</ul>
+</li>
+<li>区别
+<ul>
+<li>Exec 无法解析环境变量</li>
+<li>CMD 和 ENTRYPOINT 推荐使用 Exec 格式</li>
+<li>RUN 则两种格式都可以</li>
+</ul>
+</li>
+</ul>
 <h2 id="read-more">Read More</h2>
 <ul>
 <li>
   <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile reference</a></li>
-<li></li>
+<li>
+  <a href="https://www.cnblogs.com/CloudMan6/p/6875834.html">RUN vs CMD vs ENTRYPOINT - 每天5分钟玩转 Docker 容器技术</a></li>
+<li>
+  <a href="https://www.cnblogs.com/51kata/category/789766.html">虚拟化和Doker技术</a></li>
 </ul>
 </article>
  
@@ -191,11 +557,34 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#dockerfile">Dockerfile</a>
       <ul>
-        <li><a href="#基础指令">基础指令</a></li>
+        <li><a href="#指令">指令</a>
+          <ul>
+            <li><a href="#arg">ARG</a></li>
+            <li><a href="#from">FROM</a></li>
+            <li><a href="#maintainer-deprecated">MAINTAINER (deprecated)</a></li>
+            <li><a href="#label">LABEL</a></li>
+            <li><a href="#env">ENV</a></li>
+            <li><a href="#expose">EXPOSE</a></li>
+            <li><a href="#workdir">WORKDIR</a></li>
+            <li><a href="#user">USER</a></li>
+            <li><a href="#run">RUN</a></li>
+            <li><a href="#add">ADD</a></li>
+            <li><a href="#copy">COPY</a></li>
+            <li><a href="#cmd">CMD</a></li>
+            <li><a href="#entrypoint">ENTRYPOINT</a></li>
+            <li><a href="#shell">SHELL</a></li>
+            <li><a href="#onbuild-模板镜像">ONBUILD 模板镜像</a></li>
+            <li><a href="#volume">VOLUME</a></li>
+            <li><a href="#healthcheck-健康检查">HEALTHCHECK 健康检查</a></li>
+          </ul>
+        </li>
+        <li><a href="#构建方法">构建方法</a></li>
+        <li><a href="#dockerignore">.dockerignore</a></li>
         <li><a href="#常见问题">常见问题</a>
           <ul>
-            <li><a href="#hosts-">hosts ??</a></li>
-            <li><a href="#dns">DNS??</a></li>
+            <li><a href="#runcmdentrypoint-的区别"><code>RUN</code>、<code>CMD</code>、<code>ENTRYPOINT</code> 的区别</a></li>
+            <li><a href="#addcopy-的区别"><code>ADD</code>、<code>COPY</code> 的区别</a></li>
+            <li><a href="#指令格式shellexec">指令格式：Shell、Exec</a></li>
           </ul>
         </li>
         <li><a href="#read-more">Read More</a></li>
