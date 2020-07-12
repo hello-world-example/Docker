@@ -4,15 +4,18 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="常见问题 镜像加速器 登陆 阿里云 &gt; 使用 镜像加速器 （内置教程）
+容器启动后闪退  Docker 容器后台运行，就必须有一个前台进程
+ docker run -d centos /bin/bash -c &#34;while true; do echo noting; sleep 1; done&#34; root 用户进行容器 docker exec -it --user root &lt;container id&gt; /bin/bash "><meta property="og:title" content="" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/FAQ/" />
+
 <title>F a Q | Docker</title>
-
-
-<link rel="stylesheet" href="/Docker/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
-
-
-
-
 <link rel="icon" href="/Docker/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Docker/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <link rel="alternate" type="application/rss+xml" href="https://hello-world-example.github.io/Docker/docs/FAQ/index.xml" title="Docker" />
@@ -25,13 +28,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Docker/">Docker</a>
+  <a href="/Docker"><span>Docker</span>
+  </a>
 </h2>
 
 
@@ -39,30 +43,32 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2f Docker\2f docs\2f FAQ\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
-<ul>
+
+
+
+
+  <ul>
 <li><strong>核心概念</strong>
 <ul>
-<li><a href="/Docker/docs/Core/Cgroups/">cgroups</a></li>
-<li><a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
+<li>
+  <a href="/Docker/docs/Core/Cgroups/">cgroups</a></li>
+<li>
+  <a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
 </ul>
 </li>
-<li><a href="/Docker/docs/FAQ/"><strong>常见问题..</strong></a>
+<li>
+  <a href="/Docker/docs/FAQ/"class=active><strong>常见问题..</strong></a>
 <ul>
-<li><a href="/Docker/docs/FAQ/TimeZone/">时区设置</a></li>
+<li>
+  <a href="/Docker/docs/FAQ/TimeZone/">时区设置</a></li>
 </ul>
 </li>
 </ul>
+
+
+
 
 
 
@@ -73,30 +79,59 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Docker/svg/menu.svg" alt="Menu" />
+    <img src="/Docker/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>F a Q</strong>
-</header>
+
+  <label for="toc-control">
+    <img src="/Docker/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#常见问题">常见问题</a>
+      <ul>
+        <li><a href="#镜像加速器">镜像加速器</a></li>
+        <li><a href="#容器启动后闪退">容器启动后闪退</a></li>
+        <li><a href="#root-用户进行容器">root 用户进行容器</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
 
       
-<article class="markdown"><h1 id="常见问题">常见问题</h1>
+      
+  <article class="markdown"><h1 id="常见问题">常见问题</h1>
 <h2 id="镜像加速器">镜像加速器</h2>
-<p>登陆 <a href="https://account.aliyun.com/login/login.htm">阿里云</a> &gt; 使用 <a href="https://cr.console.aliyun.com/cn-beijing/instances/mirrors">镜像加速器</a> （内置教程）</p>
+<p>登陆 
+  <a href="https://account.aliyun.com/login/login.htm">阿里云</a> &gt; 使用 
+  <a href="https://cr.console.aliyun.com/cn-beijing/instances/mirrors">镜像加速器</a> （内置教程）</p>
 <h2 id="容器启动后闪退">容器启动后闪退</h2>
 <blockquote>
 <p>Docker 容器后台运行，就必须有一个前台进程</p>
@@ -105,49 +140,82 @@ https://github.com/alex-shpak/hugo-book
 </code></pre></div><h2 id="root-用户进行容器">root 用户进行容器</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker exec -it --user root &lt;container id&gt; /bin/bash
 </code></pre></div></article>
-
+ 
       
-<div class="book-footer justify-between">
-  
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
   <div>
     
-    <a href="https://github.com/hello-world-example/Docker/commit/761801e8a1967798b43b14100294a9ee0c047c71" title='Last modified Apr 5, 2020 by 杨凯彬' target="_blank" rel="noopener">
-      <img src="/Docker/svg/calendar.svg" alt="Changed" /> Apr 5, 2020
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/commit/bdeaaf62cc5040441351a13d8a0d5f7214b4f008" title='Last modified by 杨凯彬 | Apr 5, 2020' target="_blank" rel="noopener">
+      <img src="/Docker/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Apr 5, 2020</span>
     </a>
   </div>
-  
-  
+
+
+
   <div>
-    <a href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/FAQ/_index.md" target="_blank" rel="noopener">
-      <img src="/Docker/svg/edit.svg" alt="Edit" /> Edit this page
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/FAQ/_index.md" target="_blank" rel="noopener">
+      <img src="/Docker/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
     </a>
   </div>
-  
+
 </div>
 
+ 
+        
+      </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
-  
-
-  <aside class="book-toc level-3 fixed">
-    <nav id="TableOfContents">
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
   <ul>
-    <li><a href="#镜像加速器">镜像加速器</a></li>
-    <li><a href="#容器启动后闪退">容器启动后闪退</a></li>
-    <li><a href="#root-用户进行容器">root 用户进行容器</a></li>
+    <li><a href="#常见问题">常见问题</a>
+      <ul>
+        <li><a href="#镜像加速器">镜像加速器</a></li>
+        <li><a href="#容器启动后闪退">容器启动后闪退</a></li>
+        <li><a href="#root-用户进行容器">root 用户进行容器</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
-  </aside>
 
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

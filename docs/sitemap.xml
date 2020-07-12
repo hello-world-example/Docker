@@ -8,6 +8,31 @@
   </url>
   
   <url>
+    <loc>https://hello-world-example.github.io/Docker/docs/Action/docker-compose/</loc>
+    <lastmod>2020-07-09T19:06:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Docker/docs/Action/docker-maven-plugin/</loc>
+    <lastmod>2020-07-09T19:06:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Docker/docs/Action/dockerd/</loc>
+    <lastmod>2020-07-09T19:06:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Docker/docs/Action/Dockerfile/</loc>
+    <lastmod>2020-07-09T19:06:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Docker/docs/Action/Rest-API/</loc>
+    <lastmod>2020-07-09T19:06:28+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://hello-world-example.github.io/Docker/docs/Core/Cgroups/</loc>
     <lastmod>2019-10-28T00:18:49+08:00</lastmod>
   </url>
@@ -19,12 +44,16 @@
   
   <url>
     <loc>https://hello-world-example.github.io/Docker/docs/FAQ/</loc>
-    <lastmod>2020-04-05T02:25:28+08:00</lastmod>
+    <lastmod>2020-04-05T02:38:37+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hello-world-example.github.io/Docker/docs/FAQ/TimeZone/</loc>
     <lastmod>2020-04-05T02:25:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Docker/categories/</loc>
   </url>
   
   <url>
@@ -34,7 +63,11 @@
   
   <url>
     <loc>https://hello-world-example.github.io/Docker/docs/</loc>
-    <lastmod>2020-04-05T02:25:28+08:00</lastmod>
+    <lastmod>2020-07-09T19:06:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Docker/tags/</loc>
   </url>
   
 </urlset>

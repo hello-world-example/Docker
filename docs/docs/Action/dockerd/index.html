@@ -4,12 +4,26 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="chroot Read More   理解 chroot  "><meta property="og:title" content="" />
-<meta property="og:description" content="chroot Read More   理解 chroot  " />
+<meta name="description" content="dockerd -H TODO &ndash;registry-mirror $registry_mirror
+&ndash;insecure-registry $insecure_registry
+&ndash;data-root $graph
+&ndash;exec-root $exec_root
+&ndash;pidfile $pidfile
+-H tcp://$ip:2375
+-H unix:///var/run/docker.sock
+Read More  官方文档 dockerd  Docker 远程连接 &ndash; dockerd 命令详解  "><meta property="og:title" content="" />
+<meta property="og:description" content="dockerd -H TODO &ndash;registry-mirror $registry_mirror
+&ndash;insecure-registry $insecure_registry
+&ndash;data-root $graph
+&ndash;exec-root $exec_root
+&ndash;pidfile $pidfile
+-H tcp://$ip:2375
+-H unix:///var/run/docker.sock
+Read More  官方文档 dockerd  Docker 远程连接 &ndash; dockerd 命令详解  " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/Core/Chroot/" />
-<meta property="article:modified_time" content="2019-10-28T00:18:49+08:00" />
-<title>Chroot | Docker</title>
+<meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/Action/dockerd/" />
+<meta property="article:modified_time" content="2020-07-09T19:06:28+08:00" />
+<title>Dockerd | Docker</title>
 <link rel="icon" href="/Docker/favicon.png" type="image/x-icon">
 
 
@@ -52,7 +66,7 @@ https://github.com/alex-shpak/hugo-book
 <li>
   <a href="/Docker/docs/Core/Cgroups/">cgroups</a></li>
 <li>
-  <a href="/Docker/docs/Core/Chroot/"class=active>chroot 命令</a></li>
+  <a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
 </ul>
 </li>
 <li>
@@ -92,7 +106,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/Docker/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>Chroot</strong>
+  <strong>Dockerd</strong>
 
   <label for="toc-control">
     <img src="/Docker/svg/toc.svg" class="book-icon" alt="Table of Contents" />
@@ -106,8 +120,10 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#chroot">chroot</a>
+    <li><a href="#dockerd">dockerd</a>
       <ul>
+        <li><a href="#-h">-H</a></li>
+        <li><a href="#todo">TODO</a></li>
         <li><a href="#read-more">Read More</a></li>
       </ul>
     </li>
@@ -122,11 +138,22 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown"><h1 id="chroot">chroot</h1>
+  <article class="markdown"><h1 id="dockerd">dockerd</h1>
+<h2 id="-h">-H</h2>
+<h2 id="todo">TODO</h2>
+<p>&ndash;registry-mirror $registry_mirror</p>
+<p>&ndash;insecure-registry $insecure_registry</p>
+<p>&ndash;data-root $graph</p>
+<p>&ndash;exec-root $exec_root</p>
+<p>&ndash;pidfile $pidfile</p>
+<p>-H tcp://$ip:2375</p>
+<p>-H unix:///var/run/docker.sock</p>
 <h2 id="read-more">Read More</h2>
 <ul>
+<li>官方文档 
+  <a href="https://docs.docker.com/engine/reference/commandline/dockerd/">dockerd</a></li>
 <li>
-  <a href="https://www.ibm.com/developerworks/cn/linux/l-cn-chroot/index.html">理解 chroot</a></li>
+  <a href="https://cloud.tencent.com/developer/article/1047265">Docker 远程连接 &ndash; dockerd 命令详解</a></li>
 </ul>
 </article>
  
@@ -140,16 +167,16 @@ https://github.com/alex-shpak/hugo-book
 
   <div>
     
-    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/commit/e544a9892f827796a180fde84dc671aa4e8be616" title='Last modified by 杨凯彬 | Oct 28, 2019' target="_blank" rel="noopener">
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/commit/effc4073375dc0c4110e6bc4745b113ff0c115ef" title='Last modified by kaibin.yang | Jul 9, 2020' target="_blank" rel="noopener">
       <img src="/Docker/svg/calendar.svg" class="book-icon" alt="Calendar" />
-      <span>Oct 28, 2019</span>
+      <span>Jul 9, 2020</span>
     </a>
   </div>
 
 
 
   <div>
-    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/Core/Chroot.md" target="_blank" rel="noopener">
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/Action/dockerd.md" target="_blank" rel="noopener">
       <img src="/Docker/svg/edit.svg" class="book-icon" alt="Edit" />
       <span>Edit this page</span>
     </a>
@@ -177,8 +204,10 @@ https://github.com/alex-shpak/hugo-book
       
   <nav id="TableOfContents">
   <ul>
-    <li><a href="#chroot">chroot</a>
+    <li><a href="#dockerd">dockerd</a>
       <ul>
+        <li><a href="#-h">-H</a></li>
+        <li><a href="#todo">TODO</a></li>
         <li><a href="#read-more">Read More</a></li>
       </ul>
     </li>

@@ -4,15 +4,20 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="cgroups   namespace : linux 内核在 task_struct 中对进程组管理的基础机制 cgroups ( Control Groups ) : namespace 的用户空间的管理接口 LXC ( Linux Container ) : cgroups 的管理工具 Docker : LXC 的管理器  Docker 是 Go 来实现的，动化了对 LXC 的管理过程，能够自动在线下载相应的发行版本的 rootfs。LXC 可以直接 chroot 到任意的系统的 rootfs 上并通过 cgroups 的限制机制来控制容器内系统的资源占有率。cgroups 通过配置文件或者命令配置后，限制相应进程或一组进程使用的系统资源。
+摘录自 —— docker lxc cgroup namespace 入门
+ 作用  资源限制（Resource Limitation）：cgroups 可以对进程组使用的资源总额进行限制。如设定应用运行时使用内存的上限，一旦超过这个配额就发出 OOM（Out of Memory）。 优先级分配（Prioritization）：通过分配的 CPU 时间片数量及硬盘 IO 带宽大小，实际上就相当于控制了进程运行的优先级。 资源统计（Accounting）： cgroups 可以统计系统的资源使用量，如 CPU 使用时长、内存用量等等，这个功能非常适用于计费。 进程控制（Control）：cgroups 可以对进程组执行挂起、恢复等操作。  子系统  blkio : 这个子系统设置限制每个块设备的输入输出控制。例如:磁盘，光盘以及usb等 cpu : 这个子系统使用调度程序为cgroup任务提供cpu的访问 cpuacct : 产生cgroup任务的cpu资源报告 cpuset : 如果是多核心的cpu，这个子系统会为cgroup任务分配单独的cpu和内存 devices : 允许或拒绝cgroup任务对设备的访问 freezer : 暂停和恢复cgroup任务 memory : 设置每个cgroup的内存限制以及产生内存资源报告 net_cls : 标记每个网络包以供cgroup方便使用 ns : 名称空间子系统 perf_event: 增加了对每group的监测跟踪的能力  常用命令 # 安装 (apt-get install cgroup-bin) yum install libcgroup # 显示已经挂载的子系统 ( lssusys ) ll /sys/fs/cgroup/ ."><meta property="og:title" content="" />
+<meta property="og:description" content="cgroups   namespace : linux 内核在 task_struct 中对进程组管理的基础机制 cgroups ( Control Groups ) : namespace 的用户空间的管理接口 LXC ( Linux Container ) : cgroups 的管理工具 Docker : LXC 的管理器  Docker 是 Go 来实现的，动化了对 LXC 的管理过程，能够自动在线下载相应的发行版本的 rootfs。LXC 可以直接 chroot 到任意的系统的 rootfs 上并通过 cgroups 的限制机制来控制容器内系统的资源占有率。cgroups 通过配置文件或者命令配置后，限制相应进程或一组进程使用的系统资源。
+摘录自 —— docker lxc cgroup namespace 入门
+ 作用  资源限制（Resource Limitation）：cgroups 可以对进程组使用的资源总额进行限制。如设定应用运行时使用内存的上限，一旦超过这个配额就发出 OOM（Out of Memory）。 优先级分配（Prioritization）：通过分配的 CPU 时间片数量及硬盘 IO 带宽大小，实际上就相当于控制了进程运行的优先级。 资源统计（Accounting）： cgroups 可以统计系统的资源使用量，如 CPU 使用时长、内存用量等等，这个功能非常适用于计费。 进程控制（Control）：cgroups 可以对进程组执行挂起、恢复等操作。  子系统  blkio : 这个子系统设置限制每个块设备的输入输出控制。例如:磁盘，光盘以及usb等 cpu : 这个子系统使用调度程序为cgroup任务提供cpu的访问 cpuacct : 产生cgroup任务的cpu资源报告 cpuset : 如果是多核心的cpu，这个子系统会为cgroup任务分配单独的cpu和内存 devices : 允许或拒绝cgroup任务对设备的访问 freezer : 暂停和恢复cgroup任务 memory : 设置每个cgroup的内存限制以及产生内存资源报告 net_cls : 标记每个网络包以供cgroup方便使用 ns : 名称空间子系统 perf_event: 增加了对每group的监测跟踪的能力  常用命令 # 安装 (apt-get install cgroup-bin) yum install libcgroup # 显示已经挂载的子系统 ( lssusys ) ll /sys/fs/cgroup/ ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/Core/Cgroups/" />
+<meta property="article:modified_time" content="2019-10-28T00:18:49+08:00" />
 <title>Cgroups | Docker</title>
-
-
-<link rel="stylesheet" href="/Docker/book.min.a2277534155c5e81ce2c8ca6a4cd295525f25c75788a2e4e72c3310491c743b1.css">
-
-
-
-
 <link rel="icon" href="/Docker/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Docker/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
 
 
 <!--
@@ -24,13 +29,14 @@ https://github.com/alex-shpak/hugo-book
 </head>
 
 <body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-
-    <aside class="book-menu fixed">
-      <nav>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
 <h2 class="book-brand">
-  <a href="https://hello-world-example.github.io/Docker/">Docker</a>
+  <a href="/Docker"><span>Docker</span>
+  </a>
 </h2>
 
 
@@ -38,30 +44,32 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-    
-  
-  
-  
 
-  <style>
-  nav ul a[href$="\2f Docker\2f docs\2f Core\2f Cgroups\2f "] {
-      color: #004ed0;
-  }
-  </style>
 
-<ul>
+
+
+
+
+  <ul>
 <li><strong>核心概念</strong>
 <ul>
-<li><a href="/Docker/docs/Core/Cgroups/">cgroups</a></li>
-<li><a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
+<li>
+  <a href="/Docker/docs/Core/Cgroups/"class=active>cgroups</a></li>
+<li>
+  <a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
 </ul>
 </li>
-<li><a href="/Docker/docs/FAQ/"><strong>常见问题..</strong></a>
+<li>
+  <a href="/Docker/docs/FAQ/"><strong>常见问题..</strong></a>
 <ul>
-<li><a href="/Docker/docs/FAQ/TimeZone/">时区设置</a></li>
+<li>
+  <a href="/Docker/docs/FAQ/TimeZone/">时区设置</a></li>
 </ul>
 </li>
 </ul>
+
+
+
 
 
 
@@ -72,28 +80,56 @@ https://github.com/alex-shpak/hugo-book
 </nav>
 
 
-<script>
-(function() {
-  var menu = document.querySelector("aside.book-menu nav");
-  addEventListener("beforeunload", function(event) {
-    localStorage.setItem("menu.scrollTop", menu.scrollTop);
-  });
-  menu.scrollTop = localStorage.getItem("menu.scrollTop");
-})();
-</script>
 
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
     </aside>
 
     <div class="book-page">
-      <header class="flex align-center justify-between book-header">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/Docker/svg/menu.svg" alt="Menu" />
+    <img src="/Docker/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
+
   <strong>Cgroups</strong>
-</header>
+
+  <label for="toc-control">
+    <img src="/Docker/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#cgroups">cgroups</a>
+      <ul>
+        <li><a href="#作用">作用</a></li>
+        <li><a href="#子系统">子系统</a></li>
+        <li><a href="#常用命令">常用命令</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
 
       
-<article class="markdown"><h1 id="cgroups">cgroups</h1>
+      
+  <article class="markdown"><h1 id="cgroups">cgroups</h1>
 <blockquote>
 <ul>
 <li><strong>namespace</strong> : linux 内核在 task_struct 中对进程组管理的基础机制</li>
@@ -102,7 +138,8 @@ https://github.com/alex-shpak/hugo-book
 <li><strong>Docker</strong> : LXC 的管理器</li>
 </ul>
 <p><strong>Docker</strong> 是 Go 来实现的，动化了对 <strong>LXC</strong> 的管理过程，能够自动在线下载相应的发行版本的 <strong>rootfs</strong>。<strong>LXC</strong> 可以直接 <strong>chroot</strong> 到任意的系统的 <strong>rootfs</strong> 上并通过 <strong>cgroups</strong> 的限制机制来控制容器内系统的资源占有率。<strong>cgroups</strong> 通过配置文件或者命令配置后，限制相应进程或一组进程使用的系统资源。</p>
-<p>摘录自 —— <a href="https://blog.csdn.net/cnsword/article/details/17053865">docker lxc cgroup namespace 入门</a></p>
+<p>摘录自 —— 
+  <a href="https://blog.csdn.net/cnsword/article/details/17053865">docker lxc cgroup namespace 入门</a></p>
 </blockquote>
 <h2 id="作用">作用</h2>
 <ul>
@@ -137,57 +174,99 @@ ll /sys/fs/cgroup/
 <li><a href="https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html">https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html</a></li>
 <li><a href="https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v1/index.html">https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v1/index.html</a></li>
 <li></li>
-<li><a href="https://www.infoq.cn/article/docker-resource-management-cgroups">Docker 资源管理探秘：Docker 背后的内核 Cgroups 机制</a></li>
-<li><a href="https://www.infoq.cn/profile/1279534">孙健波</a>  15.03.12 <a href="https://www.infoq.cn/article/docker-kernel-knowledge-namespace-resource-isolation">Docker 背后的内核知识——Namespace 资源隔离</a></li>
-<li><a href="https://www.infoq.cn/profile/1279534">孙健波</a>  15.04.20 <a href="https://www.infoq.cn/article/docker-kernel-knowledge-cgroups-resource-isolation">Docker 背后的内核知识——cgroups 资源限制</a></li>
-<li><a href="https://www.infoq.cn/profile/1279534">孙健波</a>  15.06.02 <a href="https://www.infoq.cn/article/docker-container-management-libcontainer-depth-analysis">Docker 背后的容器管理——Libcontainer 深度解析</a></li>
-<li><a href="https://www.infoq.cn/profile/1279534">孙健波</a>  15.10.09 <a href="https://www.infoq.cn/article/docker-standard-container-execution-engine-runc">Docker 背后的标准化容器执行引擎——runC</a></li>
+<li>
+  <a href="https://www.infoq.cn/article/docker-resource-management-cgroups">Docker 资源管理探秘：Docker 背后的内核 Cgroups 机制</a></li>
+<li>
+  <a href="https://www.infoq.cn/profile/1279534">孙健波</a>  15.03.12 
+  <a href="https://www.infoq.cn/article/docker-kernel-knowledge-namespace-resource-isolation">Docker 背后的内核知识——Namespace 资源隔离</a></li>
+<li>
+  <a href="https://www.infoq.cn/profile/1279534">孙健波</a>  15.04.20 
+  <a href="https://www.infoq.cn/article/docker-kernel-knowledge-cgroups-resource-isolation">Docker 背后的内核知识——cgroups 资源限制</a></li>
+<li>
+  <a href="https://www.infoq.cn/profile/1279534">孙健波</a>  15.06.02 
+  <a href="https://www.infoq.cn/article/docker-container-management-libcontainer-depth-analysis">Docker 背后的容器管理——Libcontainer 深度解析</a></li>
+<li>
+  <a href="https://www.infoq.cn/profile/1279534">孙健波</a>  15.10.09 
+  <a href="https://www.infoq.cn/article/docker-standard-container-execution-engine-runc">Docker 背后的标准化容器执行引擎——runC</a></li>
 </ul>
 </article>
-
+ 
       
-<div class="book-footer justify-between">
-  
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
   <div>
     
-    <a href="https://github.com/hello-world-example/Docker/commit/e544a9892f827796a180fde84dc671aa4e8be616" title='Last modified Oct 28, 2019 by 杨凯彬' target="_blank" rel="noopener">
-      <img src="/Docker/svg/calendar.svg" alt="Changed" /> Oct 28, 2019
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/commit/e544a9892f827796a180fde84dc671aa4e8be616" title='Last modified by 杨凯彬 | Oct 28, 2019' target="_blank" rel="noopener">
+      <img src="/Docker/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Oct 28, 2019</span>
     </a>
   </div>
-  
-  
+
+
+
   <div>
-    <a href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/Core/Cgroups.md" target="_blank" rel="noopener">
-      <img src="/Docker/svg/edit.svg" alt="Edit" /> Edit this page
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/Core/Cgroups.md" target="_blank" rel="noopener">
+      <img src="/Docker/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
     </a>
   </div>
-  
+
 </div>
 
+ 
+        
+      </footer>
 
       
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
     </div>
 
     
-  
-
-  <aside class="book-toc level-3 fixed">
-    <nav id="TableOfContents">
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
   <ul>
-    <li><a href="#作用">作用</a></li>
-    <li><a href="#子系统">子系统</a></li>
-    <li><a href="#常用命令">常用命令</a></li>
-    <li><a href="#read-more">Read More</a></li>
+    <li><a href="#cgroups">cgroups</a>
+      <ul>
+        <li><a href="#作用">作用</a></li>
+        <li><a href="#子系统">子系统</a></li>
+        <li><a href="#常用命令">常用命令</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
-  </aside>
 
-
-
+ 
+    </aside>
+    
   </main>
-  
-  
+
   
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

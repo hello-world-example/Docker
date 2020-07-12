@@ -15,7 +15,59 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/_sidebar/</guid>
-      <description> 核心概念  cgroups chroot 命令   常见问题..  时区设置    </description>
+      <description> 核心概念   cgroups  chroot 命令    常见问题..   时区设置    </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Docker/docs/Action/docker-compose/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Docker/docs/Action/docker-compose/</guid>
+      <description>docker-compose Read More    </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Docker/docs/Action/docker-maven-plugin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Docker/docs/Action/docker-maven-plugin/</guid>
+      <description>docker-maven-plugin Read More  官方仓库 io.fabric8 / docker-maven-plugin 官方文档 dmp.fabric8.io  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Docker/docs/Action/dockerd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Docker/docs/Action/dockerd/</guid>
+      <description>dockerd -H TODO &amp;ndash;registry-mirror $registry_mirror
+&amp;ndash;insecure-registry $insecure_registry
+&amp;ndash;data-root $graph
+&amp;ndash;exec-root $exec_root
+&amp;ndash;pidfile $pidfile
+-H tcp://$ip:2375
+-H unix:///var/run/docker.sock
+Read More  官方文档 dockerd  Docker 远程连接 &amp;ndash; dockerd 命令详解  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Docker/docs/Action/Dockerfile/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Docker/docs/Action/Dockerfile/</guid>
+      <description>Dockerfile 基础指令 常见问题 hosts ?? DNS?? Read More   Dockerfile reference   </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Docker/docs/Action/Rest-API/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Docker/docs/Action/Rest-API/</guid>
+      <description>REST API Read More   Develop with Docker Engine API  </description>
     </item>
     
     <item>
@@ -35,7 +87,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/docs/Core/Chroot/</guid>
-      <description>chroot Read More  理解 chroot  </description>
+      <description>chroot Read More   理解 chroot  </description>
     </item>
     
     <item>
