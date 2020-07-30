@@ -1,4 +1,4 @@
-# docker-compose
+# docker-compose 快速开始
 
 
 
@@ -21,6 +21,28 @@ docker-compose version
 
 
 ## docker-compose.yml
+
+### 模板
+
+```yaml
+version: '2.0'
+services:
+  web:
+    build: .
+    ports:
+    - "5000:5000"
+    volumes:
+    - .:/code
+    - logvolume01:/var/log
+    links:
+    - redis
+  redis:
+    image: redis
+volumes:
+  logvolume01: {}
+```
+
+
 
 
 
@@ -100,3 +122,5 @@ Command:
 ## Read More
 
 - [Get started with Docker Compose](https://docs.docker.com/compose/gettingstarted/)
+
+
