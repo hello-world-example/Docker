@@ -26,3 +26,14 @@ docker exec -it --user root <container id> /bin/bash
 
 
 
+## MAC Docker tty
+
+```bash
+$ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
+
+# 查看容器列表
+$ ls -al /var/lib/docker/containers
+```
+
+
+

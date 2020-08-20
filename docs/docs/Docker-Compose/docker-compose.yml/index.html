@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="docker-compose.yml 文件结构和示例    YAML、YML在线编辑(校验)器  Compose file structure and examples   version: &#34;3.8&#34; services: redis: # 镜像 image: redis:alpine # &#34;no&#34;: 默认策略 # always: 不管什么状态都重启 # on-failure: 容器以非 0 状态退出时重启 # unless-stopped: 不管什么退出状态都重启，如果容器之前已经为停止状态，不尝试启动 restart: always # 端口映射，同 &#34;6379:6379&#34; ports: - &#34;6379&#34; # 指定 DNS dns: - 8.8.8.8 - 9.9.9.9 # /etc/hosts，--add-host extra_hosts: - &#34;somehost:162.242.195.82&#34; - &#34;otherhost:50.31.209.229&#34; networks: - frontend env_file: .env environment: - RACK_ENV=development - SHOW=true - SESSION_SECRET deploy: replicas: 2 update_config: parallelism: 2 delay: 10s restart_policy: condition: on-failure db: image: postgres:9."><meta property="og:title" content="" />
+<meta property="og:description" content="docker-compose.yml 文件结构和示例    YAML、YML在线编辑(校验)器  Compose file structure and examples   version: &#34;3.8&#34; services: redis: # 镜像 image: redis:alpine # &#34;no&#34;: 默认策略 # always: 不管什么状态都重启 # on-failure: 容器以非 0 状态退出时重启 # unless-stopped: 不管什么退出状态都重启，如果容器之前已经为停止状态，不尝试启动 restart: always # 端口映射，同 &#34;6379:6379&#34; ports: - &#34;6379&#34; # 指定 DNS dns: - 8.8.8.8 - 9.9.9.9 # /etc/hosts，--add-host extra_hosts: - &#34;somehost:162.242.195.82&#34; - &#34;otherhost:50.31.209.229&#34; networks: - frontend env_file: .env environment: - RACK_ENV=development - SHOW=true - SESSION_SECRET deploy: replicas: 2 update_config: parallelism: 2 delay: 10s restart_policy: condition: on-failure db: image: postgres:9." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/Docker-Compose/docker-compose.yml/" />
+<meta property="article:modified_time" content="2020-07-30T18:49:23+08:00" />
+<title>Docker Compose.yml | Docker</title>
+<link rel="icon" href="/Docker/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Docker/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Docker"><span>Docker</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><strong>核心概念</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Core/Cgroups/">cgroups</a></li>
+<li>
+  <a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
+</ul>
+</li>
+<li><strong>Docker-Cli</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Docker-Cli/logs/">logs</a></li>
+</ul>
+</li>
+<li><strong>Action</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Action/Dockerfile/">Dockerfile</a></li>
+</ul>
+</li>
+<li><strong>docker-compose</strong></li>
+<li>
+  <a href="/Docker/docs/FAQ/"><strong>常见问题..</strong></a>
+<ul>
+<li>
+  <a href="/Docker/docs/FAQ/TimeZone/">时区设置</a></li>
+<li>
+  <a href="/Docker/docs/FAQ/Clear-Logs/">日志清理</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Docker/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Docker Compose.yml</strong>
+
+  <label for="toc-control">
+    <img src="/Docker/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker-composeyml">docker-compose.yml</a>
+      <ul>
+        <li><a href="#文件结构和示例">文件结构和示例</a></li>
+        <li><a href="#与-docker-engine-兼容性">与 Docker Engine 兼容性</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="docker-composeyml">docker-compose.yml</h1>
+<h2 id="文件结构和示例">文件结构和示例</h2>
+<blockquote>
+<ul>
+<li>
+  <a href="http://www.bejson.com/validators/yaml_editor/">YAML、YML在线编辑(校验)器</a></li>
+<li>
+  <a href="https://docs.docker.com/compose/compose-file/#compose-file-structure-and-examples">Compose file structure and examples</a></li>
+</ul>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">
+<span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
+<span style="color:#66d9ef">services</span>:
+  <span style="color:#66d9ef">redis</span>:
+    <span style="color:#75715e"># 镜像</span>
+    <span style="color:#66d9ef">image</span>: redis:alpine
+    <span style="color:#75715e"># &#34;no&#34;: 默认策略</span>
+    <span style="color:#75715e"># always: 不管什么状态都重启</span>
+    <span style="color:#75715e"># on-failure: 容器以非 0 状态退出时重启</span>
+    <span style="color:#75715e"># unless-stopped: 不管什么退出状态都重启，如果容器之前已经为停止状态，不尝试启动</span>
+    <span style="color:#66d9ef">restart</span>: always
+    <span style="color:#75715e"># 端口映射，同 &#34;6379:6379&#34;</span>
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#e6db74">&#34;6379&#34;</span>
+    <span style="color:#75715e"># 指定 DNS</span>
+    <span style="color:#66d9ef">dns</span>:
+      - <span style="color:#ae81ff">8.8.8.8</span>
+      - <span style="color:#ae81ff">9.9.9.9</span>
+    <span style="color:#75715e"># /etc/hosts，--add-host</span>
+    <span style="color:#66d9ef">extra_hosts</span>:
+      - <span style="color:#e6db74">&#34;somehost:162.242.195.82&#34;</span>
+      - <span style="color:#e6db74">&#34;otherhost:50.31.209.229&#34;</span>
+    <span style="color:#66d9ef">networks</span>:
+      - frontend
+    <span style="color:#66d9ef">env_file</span>: .env
+    <span style="color:#66d9ef">environment</span>:
+      - RACK_ENV=development
+      - SHOW=<span style="color:#66d9ef">true</span>
+      - SESSION_SECRET
+    <span style="color:#66d9ef">deploy</span>:
+      <span style="color:#66d9ef">replicas</span>: <span style="color:#ae81ff">2</span>
+      <span style="color:#66d9ef">update_config</span>:
+        <span style="color:#66d9ef">parallelism</span>: <span style="color:#ae81ff">2</span>
+        <span style="color:#66d9ef">delay</span>: 10s
+      <span style="color:#66d9ef">restart_policy</span>:
+        <span style="color:#66d9ef">condition</span>: on-failure
+
+  <span style="color:#66d9ef">db</span>:
+    <span style="color:#66d9ef">image</span>: postgres:<span style="color:#ae81ff">9.4</span>
+    <span style="color:#66d9ef">volumes</span>:
+      - db-data:/var/lib/postgresql/data
+    <span style="color:#66d9ef">networks</span>:
+      - backend
+    <span style="color:#66d9ef">deploy</span>:
+      <span style="color:#66d9ef">placement</span>:
+        <span style="color:#66d9ef">max_replicas_per_node</span>: <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">constraints</span>:
+          - <span style="color:#e6db74">&#34;node.role==manager&#34;</span>
+
+  <span style="color:#66d9ef">vote</span>:
+    <span style="color:#66d9ef">image</span>: dockersamples/examplevotingapp_vote:before
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#e6db74">&#34;5000:80&#34;</span>
+    <span style="color:#66d9ef">networks</span>:
+      - frontend
+    <span style="color:#75715e"># 依赖 redis</span>
+    <span style="color:#66d9ef">depends_on</span>:
+      - redis
+    <span style="color:#66d9ef">deploy</span>:
+      <span style="color:#66d9ef">replicas</span>: <span style="color:#ae81ff">2</span>
+      <span style="color:#66d9ef">update_config</span>:
+        <span style="color:#66d9ef">parallelism</span>: <span style="color:#ae81ff">2</span>
+      <span style="color:#66d9ef">restart_policy</span>:
+        <span style="color:#66d9ef">condition</span>: on-failure
+
+  <span style="color:#66d9ef">result</span>:
+    <span style="color:#66d9ef">image</span>: dockersamples/examplevotingapp_result:before
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#e6db74">&#34;5001:80&#34;</span>
+    <span style="color:#66d9ef">networks</span>:
+      - backend
+    <span style="color:#66d9ef">depends_on</span>:
+      - db
+    <span style="color:#66d9ef">deploy</span>:
+      <span style="color:#66d9ef">replicas</span>: <span style="color:#ae81ff">1</span>
+      <span style="color:#66d9ef">update_config</span>:
+        <span style="color:#66d9ef">parallelism</span>: <span style="color:#ae81ff">2</span>
+        <span style="color:#66d9ef">delay</span>: 10s
+      <span style="color:#66d9ef">restart_policy</span>:
+        <span style="color:#66d9ef">condition</span>: on-failure
+
+  <span style="color:#66d9ef">worker</span>:
+    <span style="color:#66d9ef">image</span>: dockersamples/examplevotingapp_worker
+    <span style="color:#66d9ef">networks</span>:
+      - frontend
+      - backend
+    <span style="color:#66d9ef">deploy</span>:
+      <span style="color:#66d9ef">mode</span>: replicated
+      <span style="color:#66d9ef">replicas</span>: <span style="color:#ae81ff">1</span>
+      <span style="color:#66d9ef">labels</span>: [APP=VOTING]
+      <span style="color:#66d9ef">restart_policy</span>:
+        <span style="color:#66d9ef">condition</span>: on-failure
+        <span style="color:#66d9ef">delay</span>: 10s
+        <span style="color:#66d9ef">max_attempts</span>: <span style="color:#ae81ff">3</span>
+        <span style="color:#66d9ef">window</span>: 120s
+      <span style="color:#66d9ef">placement</span>:
+        <span style="color:#66d9ef">constraints</span>:
+          - <span style="color:#e6db74">&#34;node.role==manager&#34;</span>
+
+  <span style="color:#66d9ef">visualizer</span>:
+    <span style="color:#66d9ef">image</span>: dockersamples/visualizer:stable
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#e6db74">&#34;8080:8080&#34;</span>
+    <span style="color:#66d9ef">stop_grace_period</span>: 1m30s
+    <span style="color:#66d9ef">volumes</span>:
+      - <span style="color:#e6db74">&#34;/var/run/docker.sock:/var/run/docker.sock&#34;</span>
+    <span style="color:#66d9ef">deploy</span>:
+      <span style="color:#66d9ef">placement</span>:
+        <span style="color:#66d9ef">constraints</span>:
+          - <span style="color:#e6db74">&#34;node.role==manager&#34;</span>
+
+<span style="color:#66d9ef">networks</span>:
+  <span style="color:#66d9ef">frontend</span>:
+  <span style="color:#66d9ef">backend</span>:
+
+<span style="color:#66d9ef">volumes</span>:
+  <span style="color:#66d9ef">db-data</span>:
+</code></pre></div><h2 id="与-docker-engine-兼容性">与 Docker Engine 兼容性</h2>
+<blockquote>
+<ul>
+<li>
+<p>
+  <a href="https://docs.docker.com/compose/compose-file/compose-versioning/#compatibility-matrix">Compatibility matrix</a></p>
+</li>
+<li>
+<p>compose 2.0 和 3.0 的文件格式没有区别，但是一些选项被删除</p>
+<ul>
+<li><a href="https://docs.docker.com/compose/compose-file/compose-versioning/#version-2x-to-3x">https://docs.docker.com/compose/compose-file/compose-versioning/#version-2x-to-3x</a></li>
+</ul>
+</li>
+<li>
+<p>compose 1.0 和 2.0 的文件格式有区别，如果要升级需要：</p>
+<ul>
+<li>整个文件增加一个缩进，并在顶部增加 <code>services:</code></li>
+<li>在第一行增加 <code>version: '2'</code> 版本号</li>
+<li><a href="https://docs.docker.com/compose/compose-file/compose-versioning/#version-1-to-2x">https://docs.docker.com/compose/compose-file/compose-versioning/#version-1-to-2x</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Compose file format</strong></th>
+<th align="left"><strong>Docker Engine release</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">3.8</td>
+<td align="left">19.03.0+</td>
+</tr>
+<tr>
+<td align="left">3.7</td>
+<td align="left">18.06.0+</td>
+</tr>
+<tr>
+<td align="left">3.6</td>
+<td align="left">18.02.0+</td>
+</tr>
+<tr>
+<td align="left">3.5</td>
+<td align="left">17.12.0+</td>
+</tr>
+<tr>
+<td align="left">3.4</td>
+<td align="left">17.09.0+</td>
+</tr>
+<tr>
+<td align="left">3.3</td>
+<td align="left">17.06.0+</td>
+</tr>
+<tr>
+<td align="left">3.2</td>
+<td align="left">17.04.0+</td>
+</tr>
+<tr>
+<td align="left">3.1</td>
+<td align="left">1.13.1+</td>
+</tr>
+<tr>
+<td align="left">3.0</td>
+<td align="left">1.13.0+</td>
+</tr>
+<tr>
+<td align="left">2.4</td>
+<td align="left">17.12.0+</td>
+</tr>
+<tr>
+<td align="left">2.3</td>
+<td align="left">17.06.0+</td>
+</tr>
+<tr>
+<td align="left">2.2</td>
+<td align="left">1.13.0+</td>
+</tr>
+<tr>
+<td align="left">2.1</td>
+<td align="left">1.12.0+</td>
+</tr>
+<tr>
+<td align="left">2.0</td>
+<td align="left">1.10.0+</td>
+</tr>
+<tr>
+<td align="left">1.0</td>
+<td align="left">1.9.1.+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="read-more">Read More</h2>
+<ul>
+<li>
+  <a href="https://docs.docker.com/compose/compose-file/">Compose file version 3 reference</a></li>
+<li>
+  <a href="https://docs.docker.com/compose/compose-file/compose-file-v2/">Compose file version 2 reference</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+  <div>
+    
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/commit/a75d108873205c501659da534e9d90c1ed68a958" title='Last modified by kaibin.yang | Jul 30, 2020' target="_blank" rel="noopener">
+      <img src="/Docker/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Jul 30, 2020</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/Docker-Compose/docker-compose.yml.md" target="_blank" rel="noopener">
+      <img src="/Docker/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker-composeyml">docker-compose.yml</a>
+      <ul>
+        <li><a href="#文件结构和示例">文件结构和示例</a></li>
+        <li><a href="#与-docker-engine-兼容性">与 Docker Engine 兼容性</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

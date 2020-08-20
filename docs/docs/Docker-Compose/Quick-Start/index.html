@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="docker-compose 快速开始 安装 # 下载 docker-compose 文件 curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` \  &gt; /usr/local/bin/docker-compose # 授予可执行权限 chmod u&#43;x /usr/local/bin/docker-compose # 查看版本 docker-compose version docker-compose.yml 模板 version: &#39;2.0&#39; services: web: build: . ports: - &#34;5000:5000&#34; volumes: - .:/code - logvolume01:/var/log links: - redis redis: image: redis volumes: logvolume01: {} 命令 # 查看帮助 $ docker-compose help Define and run multi-container applications with Docker. Usage: docker-compose [-f &lt;arg&gt;...] [options] [COMMAND] [ARGS...] docker-compose -h|--help Options: ."><meta property="og:title" content="" />
+<meta property="og:description" content="docker-compose 快速开始 安装 # 下载 docker-compose 文件 curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` \  &gt; /usr/local/bin/docker-compose # 授予可执行权限 chmod u&#43;x /usr/local/bin/docker-compose # 查看版本 docker-compose version docker-compose.yml 模板 version: &#39;2.0&#39; services: web: build: . ports: - &#34;5000:5000&#34; volumes: - .:/code - logvolume01:/var/log links: - redis redis: image: redis volumes: logvolume01: {} 命令 # 查看帮助 $ docker-compose help Define and run multi-container applications with Docker. Usage: docker-compose [-f &lt;arg&gt;...] [options] [COMMAND] [ARGS...] docker-compose -h|--help Options: ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/Docker-Compose/Quick-Start/" />
+<meta property="article:modified_time" content="2020-07-30T18:49:23+08:00" />
+<title>Quick Start | Docker</title>
+<link rel="icon" href="/Docker/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Docker/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Docker"><span>Docker</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><strong>核心概念</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Core/Cgroups/">cgroups</a></li>
+<li>
+  <a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
+</ul>
+</li>
+<li><strong>Docker-Cli</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Docker-Cli/logs/">logs</a></li>
+</ul>
+</li>
+<li><strong>Action</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Action/Dockerfile/">Dockerfile</a></li>
+</ul>
+</li>
+<li><strong>docker-compose</strong></li>
+<li>
+  <a href="/Docker/docs/FAQ/"><strong>常见问题..</strong></a>
+<ul>
+<li>
+  <a href="/Docker/docs/FAQ/TimeZone/">时区设置</a></li>
+<li>
+  <a href="/Docker/docs/FAQ/Clear-Logs/">日志清理</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Docker/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Quick Start</strong>
+
+  <label for="toc-control">
+    <img src="/Docker/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker-compose-快速开始">docker-compose 快速开始</a>
+      <ul>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#docker-composeyml">docker-compose.yml</a>
+          <ul>
+            <li><a href="#模板">模板</a></li>
+          </ul>
+        </li>
+        <li><a href="#命令">命令</a>
+          <ul>
+            <li><a href="#options">Options</a></li>
+            <li><a href="#commands">Commands</a></li>
+          </ul>
+        </li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="docker-compose-快速开始">docker-compose 快速开始</h1>
+<h2 id="安装">安装</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 下载 docker-compose 文件</span>
+curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-<span style="color:#e6db74">`</span>uname -s<span style="color:#e6db74">`</span>-<span style="color:#e6db74">`</span>uname -m<span style="color:#e6db74">`</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  &gt; /usr/local/bin/docker-compose
+  
+<span style="color:#75715e"># 授予可执行权限</span>
+chmod u+x /usr/local/bin/docker-compose
+
+<span style="color:#75715e"># 查看版本</span>
+docker-compose version
+</code></pre></div><h2 id="docker-composeyml">docker-compose.yml</h2>
+<h3 id="模板">模板</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#39;2.0&#39;</span>
+<span style="color:#66d9ef">services</span>:
+  <span style="color:#66d9ef">web</span>:
+    <span style="color:#66d9ef">build</span>: .
+    <span style="color:#66d9ef">ports</span>:
+    - <span style="color:#e6db74">&#34;5000:5000&#34;</span>
+    <span style="color:#66d9ef">volumes</span>:
+    - .:/code
+    - logvolume01:/var/log
+    <span style="color:#66d9ef">links</span>:
+    - redis
+  <span style="color:#66d9ef">redis</span>:
+    <span style="color:#66d9ef">image</span>: redis
+<span style="color:#66d9ef">volumes</span>:
+  <span style="color:#66d9ef">logvolume01</span>: {}
+</code></pre></div><h2 id="命令">命令</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 查看帮助</span>
+$ docker-compose help
+Define and run multi-container applications with Docker.
+
+Usage:
+  docker-compose <span style="color:#f92672">[</span>-f &lt;arg&gt;...<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>COMMAND<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>ARGS...<span style="color:#f92672">]</span>
+  docker-compose -h|--help
+
+Options:
+  ...
+
+Command:
+  ...
+</code></pre></div><h3 id="options">Options</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Option</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">-f, &ndash;file FILE</td>
+<td>Specify an alternate compose file (default: docker-compose.yml)</td>
+</tr>
+<tr>
+<td align="center">-p, &ndash;project-name NAME</td>
+<td>Specify an alternate project name (default: directory name)</td>
+</tr>
+<tr>
+<td align="center">&ndash;verbose</td>
+<td>Show more output</td>
+</tr>
+<tr>
+<td align="center">&ndash;log-level LEVEL</td>
+<td>Set log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)</td>
+</tr>
+<tr>
+<td align="center">&ndash;no-ansi</td>
+<td>Do not print ANSI control characters</td>
+</tr>
+<tr>
+<td align="center">-v, &ndash;version</td>
+<td>Print version and exit</td>
+</tr>
+<tr>
+<td align="center">-H, &ndash;host HOST</td>
+<td>Daemon socket to connect to</td>
+</tr>
+<tr>
+<td align="center">&ndash;tls</td>
+<td>Use TLS; implied by &ndash;tlsverify</td>
+</tr>
+<tr>
+<td align="center">&ndash;tlscacert CA_PATH</td>
+<td>Trust certs signed only by this CA</td>
+</tr>
+<tr>
+<td align="center">&ndash;tlscert CLIENT_CERT_PATH</td>
+<td>Path to TLS certificate file</td>
+</tr>
+<tr>
+<td align="center">&ndash;tlskey TLS_KEY_PATH</td>
+<td>Path to TLS key file</td>
+</tr>
+<tr>
+<td align="center">&ndash;tlsverify</td>
+<td>Use TLS and verify the remote</td>
+</tr>
+<tr>
+<td align="center">&ndash;skip-hostname-check</td>
+<td>Don&rsquo;t check the daemon&rsquo;s hostname against the name specified in the client certificate</td>
+</tr>
+<tr>
+<td align="center">&ndash;project-directory PATH</td>
+<td>Specify an alternate working directory (default: the path of the Compose file)</td>
+</tr>
+<tr>
+<td align="center">&ndash;compatibility</td>
+<td>If set, Compose will attempt to convert keys in v3 files to their non-Swarm equivalent</td>
+</tr>
+<tr>
+<td align="center">&ndash;env-file PATH</td>
+<td>Specify an alternate environment file</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commands">Commands</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Command</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">build</td>
+<td>Build or rebuild services</td>
+</tr>
+<tr>
+<td align="center">config</td>
+<td>Validate and view the Compose file</td>
+</tr>
+<tr>
+<td align="center">create</td>
+<td>Create services</td>
+</tr>
+<tr>
+<td align="center">down</td>
+<td>Stop and remove containers, networks, images, and volumes</td>
+</tr>
+<tr>
+<td align="center">events</td>
+<td>Receive real time events from containers</td>
+</tr>
+<tr>
+<td align="center">exec</td>
+<td>Execute a command in a running container</td>
+</tr>
+<tr>
+<td align="center">help</td>
+<td>Get help on a command</td>
+</tr>
+<tr>
+<td align="center">images</td>
+<td>List images</td>
+</tr>
+<tr>
+<td align="center">kill</td>
+<td>Kill containers</td>
+</tr>
+<tr>
+<td align="center">logs</td>
+<td>View output from containers</td>
+</tr>
+<tr>
+<td align="center">pause</td>
+<td>Pause services</td>
+</tr>
+<tr>
+<td align="center">port</td>
+<td>Print the public port for a port binding</td>
+</tr>
+<tr>
+<td align="center">ps</td>
+<td>List containers</td>
+</tr>
+<tr>
+<td align="center">pull</td>
+<td>Pull service images</td>
+</tr>
+<tr>
+<td align="center">push</td>
+<td>Push service images</td>
+</tr>
+<tr>
+<td align="center">restart</td>
+<td>Restart services</td>
+</tr>
+<tr>
+<td align="center">rm</td>
+<td>Remove stopped containers</td>
+</tr>
+<tr>
+<td align="center">run</td>
+<td>Run a one-off command</td>
+</tr>
+<tr>
+<td align="center">scale</td>
+<td>Set number of containers for a service</td>
+</tr>
+<tr>
+<td align="center">start</td>
+<td>Start services</td>
+</tr>
+<tr>
+<td align="center">stop</td>
+<td>Stop services</td>
+</tr>
+<tr>
+<td align="center">top</td>
+<td>Display the running processes</td>
+</tr>
+<tr>
+<td align="center">unpause</td>
+<td>Unpause services</td>
+</tr>
+<tr>
+<td align="center">up</td>
+<td>Create and start containers</td>
+</tr>
+<tr>
+<td align="center">version</td>
+<td>Show the Docker-Compose version information</td>
+</tr>
+</tbody>
+</table>
+<h2 id="read-more">Read More</h2>
+<ul>
+<li>
+  <a href="https://docs.docker.com/compose/gettingstarted/">Get started with Docker Compose</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+  <div>
+    
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/commit/a75d108873205c501659da534e9d90c1ed68a958" title='Last modified by kaibin.yang | Jul 30, 2020' target="_blank" rel="noopener">
+      <img src="/Docker/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>Jul 30, 2020</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/Docker-Compose/Quick-Start.md" target="_blank" rel="noopener">
+      <img src="/Docker/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker-compose-快速开始">docker-compose 快速开始</a>
+      <ul>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#docker-composeyml">docker-compose.yml</a>
+          <ul>
+            <li><a href="#模板">模板</a></li>
+          </ul>
+        </li>
+        <li><a href="#命令">命令</a>
+          <ul>
+            <li><a href="#options">Options</a></li>
+            <li><a href="#commands">Commands</a></li>
+          </ul>
+        </li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

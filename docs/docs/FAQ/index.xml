@@ -11,6 +11,15 @@
     
     <item>
       <title></title>
+      <link>https://hello-world-example.github.io/Docker/docs/FAQ/Clear-Logs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Docker/docs/FAQ/Clear-Logs/</guid>
+      <description>清理 Docker 容器日志 清除日志文件 # MAC Docker tty # $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty # 日志文件路径 $ docker inspect -f &amp;#39;{{.LogPath}}&amp;#39; # 或 $ docker inspect &amp;lt;container name&amp;gt; | grep -2 Log &amp;#34;LogPath&amp;#34;: &amp;#34;/var/lib/docker/containers/xxx/xxx-json.log&amp;#34;, # 查看容器列表 $ ls -al /var/lib/docker/containers # 找到日志文件并计算大小 $ find /var/lib/docker/containers/ -size +500k -name *-json.log | xargs du -sh # 清除日志文件 $ echo &amp;#34;&amp;#34; &amp;gt; /var/lib/docker/containers/xxxxxxx/xxxxxxx-json.log 设置日志文件大小 全局设置 $ vim /etc/docker/daemon.json { &amp;#34;log-driver&amp;#34;:&amp;#34;json-file&amp;#34;, &amp;#34;log-opts&amp;#34;: {&amp;#34;max-size&amp;#34;:&amp;#34;500m&amp;#34;, &amp;#34;max-file&amp;#34;:&amp;#34;3&amp;#34;} } docker-compose services: nginx: .</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>https://hello-world-example.github.io/Docker/docs/FAQ/TimeZone/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       

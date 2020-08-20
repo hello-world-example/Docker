@@ -9,9 +9,8 @@ headless: true
   - [logs]({{< relref "/docs/Docker-Cli/logs.md" >}})
 - **Action**
   - [Dockerfile]({{< relref "/docs/Action/Dockerfile.md" >}})
-  - [docker-compose]({{< relref "/docs/Action/docker-compose.md" >}})
 - **docker-compose**
-  - 
 - [**常见问题..**]({{< relref "/docs/FAQ" >}})
   - [时区设置]({{< relref "/docs/FAQ/TimeZone.md" >}})
+  - [日志清理]({{< relref "/docs/FAQ/Clear-Logs.md" >}})
 

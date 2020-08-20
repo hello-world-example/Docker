@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="常见问题 镜像加速器 登陆 阿里云 &gt; 使用 镜像加速器 （内置教程）
 容器启动后闪退  Docker 容器后台运行，就必须有一个前台进程
- docker run -d centos /bin/bash -c &#34;while true; do echo noting; sleep 1; done&#34; root 用户进行容器 docker exec -it --user root &lt;container id&gt; /bin/bash "><meta property="og:title" content="" />
+ docker run -d centos /bin/bash -c &#34;while true; do echo noting; sleep 1; done&#34; root 用户进行容器 docker exec -it --user root &lt;container id&gt; /bin/bash MAC Docker tty $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty # 查看容器列表 $ ls -al /var/lib/docker/containers "><meta property="og:title" content="" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/FAQ/" />
@@ -58,17 +58,26 @@ https://github.com/alex-shpak/hugo-book
   <a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
 </ul>
 </li>
+<li><strong>Docker-Cli</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Docker-Cli/logs/">logs</a></li>
+</ul>
+</li>
 <li><strong>Action</strong>
 <ul>
 <li>
   <a href="/Docker/docs/Action/Dockerfile/">Dockerfile</a></li>
 </ul>
 </li>
+<li><strong>docker-compose</strong></li>
 <li>
   <a href="/Docker/docs/FAQ/"class=active><strong>常见问题..</strong></a>
 <ul>
 <li>
   <a href="/Docker/docs/FAQ/TimeZone/">时区设置</a></li>
+<li>
+  <a href="/Docker/docs/FAQ/Clear-Logs/">日志清理</a></li>
 </ul>
 </li>
 </ul>
@@ -120,6 +129,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#镜像加速器">镜像加速器</a></li>
         <li><a href="#容器启动后闪退">容器启动后闪退</a></li>
         <li><a href="#root-用户进行容器">root 用户进行容器</a></li>
+        <li><a href="#mac-docker-tty">MAC Docker tty</a></li>
       </ul>
     </li>
   </ul>
@@ -145,6 +155,11 @@ https://github.com/alex-shpak/hugo-book
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run -d centos /bin/bash -c <span style="color:#e6db74">&#34;while true; do echo noting; sleep 1; done&#34;</span>
 </code></pre></div><h2 id="root-用户进行容器">root 用户进行容器</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker exec -it --user root &lt;container id&gt; /bin/bash
+</code></pre></div><h2 id="mac-docker-tty">MAC Docker tty</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
+
+<span style="color:#75715e"># 查看容器列表</span>
+$ ls -al /var/lib/docker/containers
 </code></pre></div></article>
  
       
@@ -199,6 +214,7 @@ https://github.com/alex-shpak/hugo-book
         <li><a href="#镜像加速器">镜像加速器</a></li>
         <li><a href="#容器启动后闪退">容器启动后闪退</a></li>
         <li><a href="#root-用户进行容器">root 用户进行容器</a></li>
+        <li><a href="#mac-docker-tty">MAC Docker tty</a></li>
       </ul>
     </li>
   </ul>
