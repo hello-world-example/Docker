@@ -13,4 +13,6 @@ headless: true
 - [**常见问题..**]({{< relref "/docs/FAQ" >}})
   - [时区设置]({{< relref "/docs/FAQ/TimeZone.md" >}})
   - [日志清理]({{< relref "/docs/FAQ/Clear-Logs.md" >}})
+- **Images**
+  - [kennethreitz/httpbin]({{< relref "/docs/Images/Httpbin.md" >}})
 
