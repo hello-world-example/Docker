@@ -1,5 +1,11 @@
 # 清理 Docker 容器日志
 
+## 查看日志
+
+``` bash
+$ docker logs -f --tail=10 <container name>
+```
+
 
 
 ## 清除日志文件
@@ -9,7 +15,7 @@
 # $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
 
 # 日志文件路径
-$ docker inspect -f '{{.LogPath}}'
+$ docker inspect -f '{{.LogPath}}' <container name>
 # 或
 $ docker inspect <container name> | grep -2 Log
 "LogPath": "/var/lib/docker/containers/xxx/xxx-json.log",

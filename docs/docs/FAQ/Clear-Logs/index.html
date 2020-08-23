@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="清理 Docker 容器日志 清除日志文件 # MAC Docker tty # $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty # 日志文件路径 $ docker inspect -f &#39;{{.LogPath}}&#39; # 或 $ docker inspect &lt;container name&gt; | grep -2 Log &#34;LogPath&#34;: &#34;/var/lib/docker/containers/xxx/xxx-json.log&#34;, # 查看容器列表 $ ls -al /var/lib/docker/containers # 找到日志文件并计算大小 $ find /var/lib/docker/containers/ -size &#43;500k -name *-json.log | xargs du -sh # 清除日志文件 $ echo &#34;&#34; &gt; /var/lib/docker/containers/xxxxxxx/xxxxxxx-json.log 设置日志文件大小 全局设置 $ vim /etc/docker/daemon.json { &#34;log-driver&#34;:&#34;json-file&#34;, &#34;log-opts&#34;: {&#34;max-size&#34;:&#34;500m&#34;, &#34;max-file&#34;:&#34;3&#34;} } docker-compose services: nginx: ."><meta property="og:title" content="" />
-<meta property="og:description" content="清理 Docker 容器日志 清除日志文件 # MAC Docker tty # $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty # 日志文件路径 $ docker inspect -f &#39;{{.LogPath}}&#39; # 或 $ docker inspect &lt;container name&gt; | grep -2 Log &#34;LogPath&#34;: &#34;/var/lib/docker/containers/xxx/xxx-json.log&#34;, # 查看容器列表 $ ls -al /var/lib/docker/containers # 找到日志文件并计算大小 $ find /var/lib/docker/containers/ -size &#43;500k -name *-json.log | xargs du -sh # 清除日志文件 $ echo &#34;&#34; &gt; /var/lib/docker/containers/xxxxxxx/xxxxxxx-json.log 设置日志文件大小 全局设置 $ vim /etc/docker/daemon.json { &#34;log-driver&#34;:&#34;json-file&#34;, &#34;log-opts&#34;: {&#34;max-size&#34;:&#34;500m&#34;, &#34;max-file&#34;:&#34;3&#34;} } docker-compose services: nginx: ." />
+<meta name="description" content="清理 Docker 容器日志 查看日志 $ docker logs -f --tail=10 &lt;container name&gt; 清除日志文件 # MAC Docker tty # $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty # 日志文件路径 $ docker inspect -f &#39;{{.LogPath}}&#39; &lt;container name&gt; # 或 $ docker inspect &lt;container name&gt; | grep -2 Log &#34;LogPath&#34;: &#34;/var/lib/docker/containers/xxx/xxx-json.log&#34;, # 查看容器列表 $ ls -al /var/lib/docker/containers # 找到日志文件并计算大小 $ find /var/lib/docker/containers/ -size &#43;500k -name *-json.log | xargs du -sh # 清除日志文件 $ echo &#34;&#34; &gt; /var/lib/docker/containers/xxxxxxx/xxxxxxx-json.log 设置日志文件大小 全局设置 $ vim /etc/docker/daemon."><meta property="og:title" content="" />
+<meta property="og:description" content="清理 Docker 容器日志 查看日志 $ docker logs -f --tail=10 &lt;container name&gt; 清除日志文件 # MAC Docker tty # $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty # 日志文件路径 $ docker inspect -f &#39;{{.LogPath}}&#39; &lt;container name&gt; # 或 $ docker inspect &lt;container name&gt; | grep -2 Log &#34;LogPath&#34;: &#34;/var/lib/docker/containers/xxx/xxx-json.log&#34;, # 查看容器列表 $ ls -al /var/lib/docker/containers # 找到日志文件并计算大小 $ find /var/lib/docker/containers/ -size &#43;500k -name *-json.log | xargs du -sh # 清除日志文件 $ echo &#34;&#34; &gt; /var/lib/docker/containers/xxxxxxx/xxxxxxx-json.log 设置日志文件大小 全局设置 $ vim /etc/docker/daemon." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/FAQ/Clear-Logs/" />
 <meta property="article:modified_time" content="2020-08-20T18:36:43+08:00" />
@@ -129,6 +129,7 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     <li><a href="#清理-docker-容器日志">清理 Docker 容器日志</a>
       <ul>
+        <li><a href="#查看日志">查看日志</a></li>
         <li><a href="#清除日志文件">清除日志文件</a></li>
         <li><a href="#设置日志文件大小">设置日志文件大小</a>
           <ul>
@@ -151,12 +152,14 @@ https://github.com/alex-shpak/hugo-book
       
       
   <article class="markdown"><h1 id="清理-docker-容器日志">清理 Docker 容器日志</h1>
-<h2 id="清除日志文件">清除日志文件</h2>
+<h2 id="查看日志">查看日志</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker logs -f --tail<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span> &lt;container name&gt;
+</code></pre></div><h2 id="清除日志文件">清除日志文件</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># MAC Docker tty</span>
 <span style="color:#75715e"># $ screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty</span>
 
 <span style="color:#75715e"># 日志文件路径</span>
-$ docker inspect -f <span style="color:#e6db74">&#39;{{.LogPath}}&#39;</span>
+$ docker inspect -f <span style="color:#e6db74">&#39;{{.LogPath}}&#39;</span> &lt;container name&gt;
 <span style="color:#75715e"># 或</span>
 $ docker inspect &lt;container name&gt; | grep -2 Log
 <span style="color:#e6db74">&#34;LogPath&#34;</span>: <span style="color:#e6db74">&#34;/var/lib/docker/containers/xxx/xxx-json.log&#34;</span>,
@@ -245,6 +248,7 @@ $ echo <span style="color:#e6db74">&#34;&#34;</span> &gt; /var/lib/docker/contai
   <ul>
     <li><a href="#清理-docker-容器日志">清理 Docker 容器日志</a>
       <ul>
+        <li><a href="#查看日志">查看日志</a></li>
         <li><a href="#清除日志文件">清除日志文件</a></li>
         <li><a href="#设置日志文件大小">设置日志文件大小</a>
           <ul>
