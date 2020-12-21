@@ -112,6 +112,15 @@ https://www.jianshu.com/p/dc6136be3ff6</description>
     
     <item>
       <title></title>
+      <link>https://hello-world-example.github.io/Docker/docs/Images/Alpine/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Docker/docs/Images/Alpine/</guid>
+      <description>alpine 镜像 进入 alpine $ docker run -it --rm alpine:3.12.3 # 别名 / $ alias ll=&amp;#39;ls -l&amp;#39; apk 包管理 镜像加速 $ cat /etc/apk/repositories http://dl-cdn.alpinelinux.org/alpine/v3.12/main http://dl-cdn.alpinelinux.org/alpine/v3.12/community # 改为国内镜像地址 $ sed -i &amp;#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&amp;#39; /etc/apk/repositories # ❤ 本地缓存地址 $ ls -al /var/cache/apk/ 常用命令 # 帮助 $ apk --help # 子命令帮助 $ apk add --help # 安装 $ apk add curl # 卸载 $ apk del curl Dockerfile FROMalpine:3.12.3# 安装 curlRUN sed -i &amp;#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&amp;#39; /etc/apk/repositoriesRUN apk add curl &amp;amp;&amp;amp; rm -rf /var/cache/apk/*#WORKDIR/opt.</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>https://hello-world-example.github.io/Docker/docs/Images/Httpbin/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="alpine 镜像 进入 alpine $ docker run -it --rm alpine:3.12.3 # 别名 / $ alias ll=&#39;ls -l&#39; apk 包管理 镜像加速 $ cat /etc/apk/repositories http://dl-cdn.alpinelinux.org/alpine/v3.12/main http://dl-cdn.alpinelinux.org/alpine/v3.12/community # 改为国内镜像地址 $ sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositories # ❤ 本地缓存地址 $ ls -al /var/cache/apk/ 常用命令 # 帮助 $ apk --help # 子命令帮助 $ apk add --help # 安装 $ apk add curl # 卸载 $ apk del curl Dockerfile FROMalpine:3.12.3# 安装 curlRUN sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositoriesRUN apk add curl &amp;&amp; rm -rf /var/cache/apk/*#WORKDIR/opt."><meta property="og:title" content="" />
+<meta property="og:description" content="alpine 镜像 进入 alpine $ docker run -it --rm alpine:3.12.3 # 别名 / $ alias ll=&#39;ls -l&#39; apk 包管理 镜像加速 $ cat /etc/apk/repositories http://dl-cdn.alpinelinux.org/alpine/v3.12/main http://dl-cdn.alpinelinux.org/alpine/v3.12/community # 改为国内镜像地址 $ sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositories # ❤ 本地缓存地址 $ ls -al /var/cache/apk/ 常用命令 # 帮助 $ apk --help # 子命令帮助 $ apk add --help # 安装 $ apk add curl # 卸载 $ apk del curl Dockerfile FROMalpine:3.12.3# 安装 curlRUN sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositoriesRUN apk add curl &amp;&amp; rm -rf /var/cache/apk/*#WORKDIR/opt." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/Images/Alpine/" />
+
+<title>Alpine | Docker</title>
+<link rel="icon" href="/Docker/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Docker/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Docker"><span>Docker</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><strong>核心概念</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Core/Cgroups/">cgroups</a></li>
+<li>
+  <a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
+</ul>
+</li>
+<li><strong>Docker-Cli</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Docker-Cli/logs/">logs</a></li>
+</ul>
+</li>
+<li><strong>Action</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Action/Dockerfile/">Dockerfile</a></li>
+</ul>
+</li>
+<li><strong>docker-compose</strong></li>
+<li>
+  <a href="/Docker/docs/FAQ/"><strong>常见问题..</strong></a>
+<ul>
+<li>
+  <a href="/Docker/docs/FAQ/TimeZone/">时区设置</a></li>
+<li>
+  <a href="/Docker/docs/FAQ/Clear-Logs/">日志清理</a></li>
+</ul>
+</li>
+<li><strong>Images</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Images/Alpine/"class=active>Alpine</a></li>
+<li>
+  <a href="/Docker/docs/Images/Httpbin/">kennethreitz/httpbin</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Docker/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Alpine</strong>
+
+  <label for="toc-control">
+    <img src="/Docker/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#alpine-镜像">alpine 镜像</a>
+      <ul>
+        <li><a href="#进入-alpine">进入 alpine</a></li>
+        <li><a href="#apk-包管理">apk 包管理</a>
+          <ul>
+            <li><a href="#镜像加速">镜像加速</a></li>
+            <li><a href="#常用命令">常用命令</a></li>
+          </ul>
+        </li>
+        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="alpine-镜像">alpine 镜像</h1>
+<h2 id="进入-alpine">进入 alpine</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run -it --rm alpine:3.12.3
+
+<span style="color:#75715e"># 别名</span>
+/ $ alias ll<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ls -l&#39;</span>
+</code></pre></div><h2 id="apk-包管理">apk 包管理</h2>
+<h3 id="镜像加速">镜像加速</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /etc/apk/repositories
+http://dl-cdn.alpinelinux.org/alpine/v3.12/main
+http://dl-cdn.alpinelinux.org/alpine/v3.12/community
+
+<span style="color:#75715e"># 改为国内镜像地址</span>
+$ sed -i <span style="color:#e6db74">&#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39;</span> /etc/apk/repositories
+
+<span style="color:#75715e"># ❤ 本地缓存地址</span>
+$ ls -al /var/cache/apk/
+</code></pre></div><h3 id="常用命令">常用命令</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 帮助</span>
+$ apk --help
+<span style="color:#75715e"># 子命令帮助</span>
+$ apk add --help
+
+<span style="color:#75715e"># 安装</span>
+$ apk add curl
+
+<span style="color:#75715e"># 卸载</span>
+$ apk del curl
+</code></pre></div><h2 id="dockerfile">Dockerfile</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> alpine:3.12.3</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 安装 curl</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> sed -i <span style="color:#e6db74">&#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39;</span> /etc/apk/repositories<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apk add curl <span style="color:#f92672">&amp;&amp;</span> rm -rf /var/cache/apk/*<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">#</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /opt</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>...<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h2 id="read-more">Read More</h2>
+<ul>
+<li>Docker Hub 
+  <a href="https://hub.docker.com/_/alpine">Alpine</a></li>
+<li>
+  <a href="https://alpinelinux.org/">alpine linux 官网</a>
+<ul>
+<li>Package： <a href="https://pkgs.alpinelinux.org/packages">https://pkgs.alpinelinux.org/packages</a></li>
+<li>镜像： <a href="https://mirrors.alpinelinux.org/">https://mirrors.alpinelinux.org/</a> &ndash;&gt; 搜索 China</li>
+</ul>
+</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/Images/Alpine.md" target="_blank" rel="noopener">
+      <img src="/Docker/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#alpine-镜像">alpine 镜像</a>
+      <ul>
+        <li><a href="#进入-alpine">进入 alpine</a></li>
+        <li><a href="#apk-包管理">apk 包管理</a>
+          <ul>
+            <li><a href="#镜像加速">镜像加速</a></li>
+            <li><a href="#常用命令">常用命令</a></li>
+          </ul>
+        </li>
+        <li><a href="#dockerfile">Dockerfile</a></li>
+        <li><a href="#read-more">Read More</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
