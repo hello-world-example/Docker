@@ -371,5 +371,6 @@ temp?
 ## Read More
 
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
+- [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 - [RUN vs CMD vs ENTRYPOINT - 每天5分钟玩转 Docker 容器技术](https://www.cnblogs.com/CloudMan6/p/6875834.html)
 - [虚拟化和Doker技术](https://www.cnblogs.com/51kata/category/789766.html)
