@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="docker-entrypoint.sh 模板 官方示例    【Redis 6.0】docker-entrypoint.sh  【MySQL 5.7 】docker-entrypoint.sh   示例代码 #!/bin/sh  set -eo pipefail shopt -s nullglob # ------------------ echo do something # ------------------ echo &#34;start exec &#39;$@&#39;&#34; exec &#34;$@&#34; 含义 set -e  如果任何语句支持结果不是 0（出错），则应该退出 如果要增加可读性, 可以使用 set -o errexit  set -o pipefail  与 set -e 类似，作用域是管道 脚本中的管道，如果前面的命令执行出了问题， 应该立即退出 可与 set -e 结合 set -eo pipefail set -o 查看所有可设置的选项  shopt -s nullglob  在使用 Linux 中的通配符时 * ?"><meta property="og:title" content="" />
+<meta property="og:description" content="docker-entrypoint.sh 模板 官方示例    【Redis 6.0】docker-entrypoint.sh  【MySQL 5.7 】docker-entrypoint.sh   示例代码 #!/bin/sh  set -eo pipefail shopt -s nullglob # ------------------ echo do something # ------------------ echo &#34;start exec &#39;$@&#39;&#34; exec &#34;$@&#34; 含义 set -e  如果任何语句支持结果不是 0（出错），则应该退出 如果要增加可读性, 可以使用 set -o errexit  set -o pipefail  与 set -e 类似，作用域是管道 脚本中的管道，如果前面的命令执行出了问题， 应该立即退出 可与 set -e 结合 set -eo pipefail set -o 查看所有可设置的选项  shopt -s nullglob  在使用 Linux 中的通配符时 * ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/Action/Docker-Entrypoint/" />
+
+<title>Docker Entrypoint | Docker</title>
+<link rel="icon" href="/Docker/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/Docker/book.min.d436f463c9471cfab26a8b71cd2f50b6abf5225806391453da4ca111d1834fef.css" integrity="sha256-1Db0Y8lHHPqyaotxzS9Qtqv1IlgGORRT2kyhEdGDT&#43;8=">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/Docker"><span>Docker</span>
+  </a>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><strong>核心概念</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Core/Cgroups/">cgroups</a></li>
+<li>
+  <a href="/Docker/docs/Core/Chroot/">chroot 命令</a></li>
+</ul>
+</li>
+<li><strong>Docker-Cli</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Docker-Cli/logs/">logs</a></li>
+</ul>
+</li>
+<li><strong>Action</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Action/Dockerfile/">Dockerfile</a></li>
+<li>
+  <a href="/Docker/docs/Action/Docker-Entrypoint/"class=active>docker-entrypoint.sh</a></li>
+</ul>
+</li>
+<li><strong>docker-compose</strong></li>
+<li>
+  <a href="/Docker/docs/FAQ/"><strong>常见问题..</strong></a>
+<ul>
+<li>
+  <a href="/Docker/docs/FAQ/TimeZone/">时区设置</a></li>
+<li>
+  <a href="/Docker/docs/FAQ/Clear-Logs/">日志清理</a></li>
+</ul>
+</li>
+<li><strong>Images</strong>
+<ul>
+<li>
+  <a href="/Docker/docs/Images/Alpine/">Alpine</a></li>
+<li>
+  <a href="/Docker/docs/Images/Httpbin/">kennethreitz/httpbin</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/Docker/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Docker Entrypoint</strong>
+
+  <label for="toc-control">
+    <img src="/Docker/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+  </label>
+</div>
+
+
+  
+    <input type="checkbox" class="hidden" id="toc-control" />
+    <aside class="hidden clearfix">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker-entrypointsh-模板">docker-entrypoint.sh 模板</a>
+      <ul>
+        <li><a href="#官方示例">官方示例</a></li>
+        <li><a href="#示例代码">示例代码</a></li>
+        <li><a href="#含义">含义</a>
+          <ul>
+            <li><a href="#set--e">set -e</a></li>
+            <li><a href="#set--o-pipefail">set -o pipefail</a></li>
+            <li><a href="#shopt--s-nullglob">shopt -s nullglob</a></li>
+            <li><a href="#exec-">exec &ldquo;$@&rdquo;</a></li>
+            <li><a href="#其他">其他</a></li>
+          </ul>
+        </li>
+        <li><a href="#巨人的肩膀">巨人的肩膀</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+    </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="docker-entrypointsh-模板">docker-entrypoint.sh 模板</h1>
+<h2 id="官方示例">官方示例</h2>
+<blockquote>
+<ul>
+<li>
+  <a href="https://github.com/docker-library/redis/blob/master/6.0/docker-entrypoint.sh">【Redis 6.0】docker-entrypoint.sh</a></li>
+<li>
+  <a href="https://github.com/docker-library/mysql/blob/master/5.7/docker-entrypoint.sh">【MySQL 5.7 】docker-entrypoint.sh</a></li>
+</ul>
+</blockquote>
+<h2 id="示例代码">示例代码</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>
+set -eo pipefail
+shopt -s nullglob
+
+<span style="color:#75715e"># ------------------</span>
+echo <span style="color:#66d9ef">do</span> something
+<span style="color:#75715e"># ------------------</span>
+
+echo <span style="color:#e6db74">&#34;start exec &#39;</span>$@<span style="color:#e6db74">&#39;&#34;</span>
+exec <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
+</code></pre></div><h2 id="含义">含义</h2>
+<h3 id="set--e">set -e</h3>
+<ul>
+<li>如果任何语句支持结果不是 0（出错），则应该退出</li>
+<li>如果要增加可读性, 可以使用 <code>set -o errexit</code></li>
+</ul>
+<h3 id="set--o-pipefail">set -o pipefail</h3>
+<ul>
+<li>与 <code>set -e</code> 类似，作用域是管道</li>
+<li>脚本中的管道，如果前面的命令执行出了问题， 应该立即退出</li>
+<li>可与 <code>set -e</code> 结合 <code>set -eo pipefail</code></li>
+<li><code>set -o</code> 查看所有可设置的选项</li>
+</ul>
+<h3 id="shopt--s-nullglob">shopt -s nullglob</h3>
+<ul>
+<li>在使用 Linux 中的通配符时 <code>* ?</code> 时，没有匹配到时执行去掉通配符的内容，如 在空文件夹下 执行 <code>echo /tmp/123/*</code>：
+<ul>
+<li>未设置时输出 输出 <code>/tmp/123/*</code></li>
+<li>设置后输出 空字符串</li>
+</ul>
+</li>
+<li><code>shopt -p</code> 列出所有可设置的选项</li>
+</ul>
+<h3 id="exec-">exec &ldquo;$@&rdquo;</h3>
+<ul>
+<li>在执行完 <code>docker-entrypoint.sh</code> 的内容后，执行用户自定义脚本</li>
+</ul>
+<h3 id="其他">其他</h3>
+<blockquote>
+<ul>
+<li>
+  <a href="/Linux/docs/100_Shell/010.var/">Shell 变量与参数</a></li>
+<li>
+  <a href="http://kail.xyz/Linux/docs/100_Shell/011.var_string/">Shell 字符串处理</a></li>
+</ul>
+</blockquote>
+<h2 id="巨人的肩膀">巨人的肩膀</h2>
+<ul>
+<li>
+  <a href="https://docs.lvrui.io/2017/06/09/%E7%BC%96%E5%86%99docker-entrypoint-sh%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6/">编写 docker-entrypoint.sh 入口文件</a></li>
+<li>
+  <a href="https://www.cnblogs.com/ziyunfei/p/4913758.html">Bash 为何要发明 shopt 命令</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex justify-between">
+
+
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/hello-world-example/Docker/edit/master/HuGo/content/docs/Action/Docker-Entrypoint.md" target="_blank" rel="noopener">
+      <img src="/Docker/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>Edit this page</span>
+    </a>
+  </div>
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker-entrypointsh-模板">docker-entrypoint.sh 模板</a>
+      <ul>
+        <li><a href="#官方示例">官方示例</a></li>
+        <li><a href="#示例代码">示例代码</a></li>
+        <li><a href="#含义">含义</a>
+          <ul>
+            <li><a href="#set--e">set -e</a></li>
+            <li><a href="#set--o-pipefail">set -o pipefail</a></li>
+            <li><a href="#shopt--s-nullglob">shopt -s nullglob</a></li>
+            <li><a href="#exec-">exec &ldquo;$@&rdquo;</a></li>
+            <li><a href="#其他">其他</a></li>
+          </ul>
+        </li>
+        <li><a href="#巨人的肩膀">巨人的肩膀</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

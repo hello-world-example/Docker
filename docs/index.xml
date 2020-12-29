@@ -15,7 +15,16 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/_sidebar/</guid>
-      <description> 核心概念   cgroups  chroot 命令   Docker-Cli   logs   Action   Dockerfile   docker-compose  常见问题..   时区设置  日志清理   Images   Alpine  kennethreitz/httpbin    </description>
+      <description> 核心概念   cgroups  chroot 命令   Docker-Cli   logs   Action   Dockerfile  docker-entrypoint.sh   docker-compose  常见问题..   时区设置  日志清理   Images   Alpine  kennethreitz/httpbin    </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://hello-world-example.github.io/Docker/docs/Action/Docker-Entrypoint/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hello-world-example.github.io/Docker/docs/Action/Docker-Entrypoint/</guid>
+      <description>docker-entrypoint.sh 模板 官方示例    【Redis 6.0】docker-entrypoint.sh  【MySQL 5.7 】docker-entrypoint.sh   示例代码 #!/bin/sh  set -eo pipefail shopt -s nullglob # ------------------ echo do something # ------------------ echo &amp;#34;start exec &amp;#39;$@&amp;#39;&amp;#34; exec &amp;#34;$@&amp;#34; 含义 set -e  如果任何语句支持结果不是 0（出错），则应该退出 如果要增加可读性, 可以使用 set -o errexit  set -o pipefail  与 set -e 类似，作用域是管道 脚本中的管道，如果前面的命令执行出了问题， 应该立即退出 可与 set -e 结合 set -eo pipefail set -o 查看所有可设置的选项  shopt -s nullglob  在使用 Linux 中的通配符时 * ?</description>
     </item>
     
     <item>

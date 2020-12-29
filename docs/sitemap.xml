@@ -4,7 +4,11 @@
   
   <url>
     <loc>https://hello-world-example.github.io/Docker/_sidebar/</loc>
-    <lastmod>2020-08-20T18:36:43+08:00</lastmod>
+    <lastmod>2020-12-21T16:26:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hello-world-example.github.io/Docker/docs/Action/Docker-Entrypoint/</loc>
   </url>
   
   <url>
@@ -74,6 +78,7 @@
   
   <url>
     <loc>https://hello-world-example.github.io/Docker/docs/Images/Alpine/</loc>
+    <lastmod>2020-12-21T16:26:27+08:00</lastmod>
   </url>
   
   <url>
@@ -102,7 +107,7 @@
   
   <url>
     <loc>https://hello-world-example.github.io/Docker/docs/</loc>
-    <lastmod>2020-12-21T15:46:08+08:00</lastmod>
+    <lastmod>2020-12-21T16:26:27+08:00</lastmod>
   </url>
   
   <url>
