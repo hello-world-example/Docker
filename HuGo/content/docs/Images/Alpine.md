@@ -57,9 +57,14 @@ $ apk del curl
 ```dockerfile
 FROM alpine:3.12.3
 
-# 安装 curl
+# 替换国内源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-RUN apk add curl && rm -rf /var/cache/apk/*
+# 更新
+RUN apk update && apk upgrade 
+# curl https
+RUN apk add ca-certificates && update-ca-certificates && apk add curl
+# 删除缓存
+RUN rm -rf /var/cache/apk/*
 
 #
 WORKDIR /opt

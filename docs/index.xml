@@ -15,7 +15,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/_sidebar/</guid>
-      <description> 核心概念   cgroups  chroot 命令   Docker-Cli   logs   Action   Dockerfile  docker-entrypoint.sh   docker-compose  常见问题..   时区设置  日志清理   Images   Alpine  kennethreitz/httpbin    </description>
+      <description> 核心概念   cgroups  chroot 命令   Docker-Cli   logs   Action   Dockerfile  docker-entrypoint.sh [dockerd] [REST API]  docker-maven-plugin   docker-compose  常见问题..   时区设置  日志清理   Images   Alpine  kennethreitz/httpbin    </description>
     </item>
     
     <item>
@@ -153,7 +153,7 @@ https://www.jianshu.com/p/dc6136be3ff6</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://hello-world-example.github.io/Docker/docs/Images/Alpine/</guid>
-      <description>alpine 镜像 进入 alpine $ docker run -it --rm alpine:3.12.3 # 别名 / $ alias ll=&amp;#39;ls -l&amp;#39; apk 包管理 镜像加速 $ cat /etc/apk/repositories http://dl-cdn.alpinelinux.org/alpine/v3.12/main http://dl-cdn.alpinelinux.org/alpine/v3.12/community # 改为国内镜像地址 $ sed -i &amp;#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&amp;#39; /etc/apk/repositories # ❤ 本地缓存地址 $ ls -al /var/cache/apk/ 常用命令 # 帮助 $ apk --help # 子命令帮助 $ apk add --help # 安装 $ apk add curl # 卸载 $ apk del curl Dockerfile FROMalpine:3.12.3# 安装 curlRUN sed -i &amp;#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&amp;#39; /etc/apk/repositoriesRUN apk add curl &amp;amp;&amp;amp; rm -rf /var/cache/apk/*#WORKDIR/opt.</description>
+      <description>alpine 镜像 进入 alpine $ docker run -it --rm alpine:3.12.3 # 别名 / $ alias ll=&amp;#39;ls -l&amp;#39; apk 包管理 镜像加速 $ cat /etc/apk/repositories http://dl-cdn.alpinelinux.org/alpine/v3.12/main http://dl-cdn.alpinelinux.org/alpine/v3.12/community # 改为国内镜像地址 $ sed -i &amp;#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&amp;#39; /etc/apk/repositories # ❤ 本地缓存地址 $ ls -al /var/cache/apk/ 常用命令 # 帮助 $ apk --help # 子命令帮助 $ apk add --help # 安装 $ apk add curl # 卸载 $ apk del curl Dockerfile FROMalpine:3.12.3# 替换国内源RUN sed -i &amp;#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&amp;#39; /etc/apk/repositories# 更新RUN apk update &amp;amp;&amp;amp; apk upgrade # curl httpsRUN apk add ca-certificates &amp;amp;&amp;amp; update-ca-certificates &amp;amp;&amp;amp; apk add curl# 删除缓存RUN rm -rf /var/cache/apk/*#WORKDIR/opt.</description>
     </item>
     
     <item>

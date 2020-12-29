@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="alpine 镜像 进入 alpine $ docker run -it --rm alpine:3.12.3 # 别名 / $ alias ll=&#39;ls -l&#39; apk 包管理 镜像加速 $ cat /etc/apk/repositories http://dl-cdn.alpinelinux.org/alpine/v3.12/main http://dl-cdn.alpinelinux.org/alpine/v3.12/community # 改为国内镜像地址 $ sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositories # ❤ 本地缓存地址 $ ls -al /var/cache/apk/ 常用命令 # 帮助 $ apk --help # 子命令帮助 $ apk add --help # 安装 $ apk add curl # 卸载 $ apk del curl Dockerfile FROMalpine:3.12.3# 安装 curlRUN sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositoriesRUN apk add curl &amp;&amp; rm -rf /var/cache/apk/*#WORKDIR/opt."><meta property="og:title" content="" />
-<meta property="og:description" content="alpine 镜像 进入 alpine $ docker run -it --rm alpine:3.12.3 # 别名 / $ alias ll=&#39;ls -l&#39; apk 包管理 镜像加速 $ cat /etc/apk/repositories http://dl-cdn.alpinelinux.org/alpine/v3.12/main http://dl-cdn.alpinelinux.org/alpine/v3.12/community # 改为国内镜像地址 $ sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositories # ❤ 本地缓存地址 $ ls -al /var/cache/apk/ 常用命令 # 帮助 $ apk --help # 子命令帮助 $ apk add --help # 安装 $ apk add curl # 卸载 $ apk del curl Dockerfile FROMalpine:3.12.3# 安装 curlRUN sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositoriesRUN apk add curl &amp;&amp; rm -rf /var/cache/apk/*#WORKDIR/opt." />
+<meta name="description" content="alpine 镜像 进入 alpine $ docker run -it --rm alpine:3.12.3 # 别名 / $ alias ll=&#39;ls -l&#39; apk 包管理 镜像加速 $ cat /etc/apk/repositories http://dl-cdn.alpinelinux.org/alpine/v3.12/main http://dl-cdn.alpinelinux.org/alpine/v3.12/community # 改为国内镜像地址 $ sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositories # ❤ 本地缓存地址 $ ls -al /var/cache/apk/ 常用命令 # 帮助 $ apk --help # 子命令帮助 $ apk add --help # 安装 $ apk add curl # 卸载 $ apk del curl Dockerfile FROMalpine:3.12.3# 替换国内源RUN sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositories# 更新RUN apk update &amp;&amp; apk upgrade # curl httpsRUN apk add ca-certificates &amp;&amp; update-ca-certificates &amp;&amp; apk add curl# 删除缓存RUN rm -rf /var/cache/apk/*#WORKDIR/opt."><meta property="og:title" content="" />
+<meta property="og:description" content="alpine 镜像 进入 alpine $ docker run -it --rm alpine:3.12.3 # 别名 / $ alias ll=&#39;ls -l&#39; apk 包管理 镜像加速 $ cat /etc/apk/repositories http://dl-cdn.alpinelinux.org/alpine/v3.12/main http://dl-cdn.alpinelinux.org/alpine/v3.12/community # 改为国内镜像地址 $ sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositories # ❤ 本地缓存地址 $ ls -al /var/cache/apk/ 常用命令 # 帮助 $ apk --help # 子命令帮助 $ apk add --help # 安装 $ apk add curl # 卸载 $ apk del curl Dockerfile FROMalpine:3.12.3# 替换国内源RUN sed -i &#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39; /etc/apk/repositories# 更新RUN apk update &amp;&amp; apk upgrade # curl httpsRUN apk add ca-certificates &amp;&amp; update-ca-certificates &amp;&amp; apk add curl# 删除缓存RUN rm -rf /var/cache/apk/*#WORKDIR/opt." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hello-world-example.github.io/Docker/docs/Images/Alpine/" />
 <meta property="article:modified_time" content="2020-12-21T16:26:27+08:00" />
@@ -67,6 +67,10 @@ https://github.com/alex-shpak/hugo-book
   <a href="/Docker/docs/Action/Dockerfile/">Dockerfile</a></li>
 <li>
   <a href="/Docker/docs/Action/Docker-Entrypoint/">docker-entrypoint.sh</a></li>
+<li>[dockerd]</li>
+<li>[REST API]</li>
+<li>
+  <a href="/Docker/docs/Action/docker-maven-plugin/">docker-maven-plugin</a></li>
 </ul>
 </li>
 <li><strong>docker-compose</strong></li>
@@ -186,9 +190,14 @@ $ apk del curl
 </code></pre></div><h2 id="dockerfile">Dockerfile</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> alpine:3.12.3</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 安装 curl</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 替换国内源</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> sed -i <span style="color:#e6db74">&#39;s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g&#39;</span> /etc/apk/repositories<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apk add curl <span style="color:#f92672">&amp;&amp;</span> rm -rf /var/cache/apk/*<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 更新</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apk update <span style="color:#f92672">&amp;&amp;</span> apk upgrade <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># curl https</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apk add ca-certificates <span style="color:#f92672">&amp;&amp;</span> update-ca-certificates <span style="color:#f92672">&amp;&amp;</span> apk add curl<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 删除缓存</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> rm -rf /var/cache/apk/*<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">#</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /opt</span><span style="color:#960050;background-color:#1e0010">
